@@ -1,0 +1,582 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../../../WEB-INF/templates/adminTemplate.xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"                
+                xmlns:p="http://primefaces.org/ui"               
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">  
+
+    <ui:define name="title_additional_caption">
+        ::- Blank
+    </ui:define>
+
+    <ui:define name="additional_css_jscript">
+        <link href="#{request.contextPath}/resources/css/pf-fix.css" rel="stylesheet" type="text/css"/>
+        <link href="#{request.contextPath}/resources/css/form-styles.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/css/personnel-profile.css"/>
+
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/vendor/fancybox/jquery.fancybox.css"/>
+
+        <script src="#{request.contextPath}/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="#{request.contextPath}/vendor/select2-4.0.3/js/select2.min.js"></script>
+
+    </ui:define>
+
+    <ui:define name="page_toolbar_left">
+        Course Setup Interface
+    </ui:define>
+
+    <ui:define name="page_toolbar_right">
+
+    </ui:define>
+
+    <ui:define name="content"> 
+        <div class="row clearfix" style="margin-top: 10px !important; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+            <div class="col-sm-12">                
+                <section id="main-content">
+                    <section class="wrapper">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel">
+
+                                    <div class="panel-body" style="font-size: 12px !important;">
+                                        <h:form prependId="false">
+
+
+                                            <div class="app-searchbox">
+                                                <h:panelGroup id="search-panel">
+                                                    <table class="app-formtable2">
+                                                        <tr>
+                                                            <td width="120" class="app-label font-siz-10pt">
+                                                                Course Code:
+                                                            </td>
+                                                            <td width="122">
+                                                                <h:inputText style="width: 120px;"
+                                                                             value="#{courseMBean.srchCourseCode}"/>
+                                                            </td>
+                                                            <td width="5"></td>
+                                                            <td width="150" class="app-label font-siz-10pt">
+                                                                Course Description:
+                                                            </td>
+                                                            <td width="152">
+                                                                <h:inputText style="width: 150px;"
+                                                                             value="#{courseMBean.srchDescription}"/>
+                                                            </td>
+                                                            <td width="5"></td>
+                                                            <td width="35" class="app-label font-siz-10pt">
+                                                                Status:
+                                                            </td>
+                                                            <td width="150">
+                                                                <h:selectOneMenu value="#{courseMBean.srchRecordStatus}" style="width: 150px;">
+                                                                    <f:selectItem itemLabel="Any" itemValue="Any" />
+                                                                    <f:selectItem itemLabel="ACTIVE" itemValue="ACTIVE" />
+                                                                    <f:selectItem itemLabel="INACTIVE" itemValue="INACTIVE" />
+                                                                </h:selectOneMenu>
+                                                            </td>
+                                                            <td width="5"></td>
+                                                            <td>
+                                                                <p:commandLink process="search-panel" update="item-listing-panel,pagertxt"
+                                                                               actionListener="#{courseMBean.searchAction}"
+                                                                               styleClass="btn btn-success btn-icon imsu-secondary-bkg-color">
+                                                                    <i class="fa fa-search"></i> Search
+                                                                </p:commandLink> 
+
+
+                                                                <p:commandLink process="search-panel" update="item-listing-panel,pagertxt"
+                                                                               actionListener="#{courseMBean.resetAction}"
+                                                                               styleClass="btn btn-outline btn-icon" style="margin-left: 10px; color: #000;">
+                                                                    <i class="fa fa-refresh"></i> Reset
+                                                                </p:commandLink>    
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                </h:panelGroup>
+                                            </div>
+
+
+                                            <div class="toolbardiv">
+                                                <div class="cp-paginatordiv">
+                                                    <h:commandLink styleClass="inpage-links" value="&laquo;Previous" actionListener="#{courseMBean.previousPage}"/>
+                                                    <span class="buttonsep">|</span>
+                                                    <h:commandLink styleClass="inpage-links" value="Next" actionListener="#{courseMBean.nextPage}" />                                                   
+
+                                                    <h:outputText value="#{courseMBean.paginationDescription}" id="pagertxt" style="margin-left: 15px;"/>
+                                                </div>
+
+
+
+                                                <div style="float: right;margin-right: 20px;">
+                                                    <p:commandLink  class="btn btn-success btn-sm" style="color: #fff; border-radius: 10px; height: 30px;display: block;" 
+                                                                    oncomplete="PF('addNewDialog').show();">
+                                                        Add A New Course <i class="fa fa-plus"></i>
+                                                    </p:commandLink>
+
+                                                </div>
+                                                <div style="clear: both; margin-bottom: 10px;"></div>
+                                            </div>
+
+
+                                            <div class="datagriddiv">
+
+                                                <h:panelGroup id="item-listing-panel">
+                                                    <div style="overflow-x: auto;">
+                                                        <table class="table table-responsive table-hover table-bordered">
+                                                            <thead>
+                                                                <th style="display: none;">S/No</th>
+                                                                <th>Course Code</th>
+                                                                <th>Course Description</th>
+                                                                <th>Course Type</th>
+                                                                <th>Course Unit</th>
+                                                                <th>Department</th>
+                                                                <th>Level</th>
+                                                                <th>Semester</th>
+                                                                <th>Study Mode</th>
+                                                                <th>Status</th>
+                                                                <th></th>
+
+                                                            </thead>
+
+                                                            <tbody>
+                                                                <ui:repeat var="record" value="#{courseMBean.recordList}" varStatus="serialNo" >
+                                                                    <tr>
+                                                                        <td style="display: none;">                                       
+                                                                            <h:outputLabel value="#{serialNo.index}" />
+                                                                        </td>
+                                                                        <td>                                       
+                                                                            <h:outputLabel value="#{record.courseCode}" />
+                                                                        </td>
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.description}" />                                     
+                                                                        </td>
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.courseType}" />  
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.courseUnit}" />  
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.programmeDesc}" />  
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.levelDesc}" />  
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.semesterDesc}" />  
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.studyModeDesc}" />  
+                                                                        </td>
+
+
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.recordStatus}" />  
+                                                                        </td>
+                                                                        <td>                                                                        
+
+                                                                            <p:commandLink oncomplete="PF('editDialog').show()"
+                                                                                           styleClass="gridlinks btn btn-sm btn-danger" style="color: #fff;display: block; padding: 5px;"
+                                                                                           action="#{courseMBean.prepareUpdateByLink(record.recordId)}">
+                                                                                <i class="fa fa-folder-open-o"></i>
+
+                                                                            </p:commandLink>
+
+
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </ui:repeat>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </h:panelGroup>
+                                            </div>
+
+                                            <!-- create new record dialog -->
+                                            <p:dialog id="new_record_Dialog" header="Add New Course" widgetVar="addNewDialog" resizable="false"  
+                                                      width="800" modal="true" position='500, 200' style="z-index: 11000 !important;">  
+                                                <h:panelGroup id="new-record-panel">
+                                                    <p:messages />
+
+                                                    <div class="row" style="margin: 0 10px;">                                                      
+
+
+                                                        <div class="row" style="padding-left: 20px;">
+
+                                                            <h:inputHidden id="global_msg" />
+                                                            <p:messages for="global_msg" />  
+                                                            <div class="form-section-title2">College And Department Details</div>
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">College:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:selectOneMenu id="dd_college"  value="#{courseMBean.recordDto.collegeId}" style="width: 280px; height: 30px;">
+                                                                            <p:ajax process="@this" update="dd_dept" listener="#{courseMBean.handleCollegeChanged}" />
+                                                                            <f:selectItem itemLabel="Choose College" itemValue=""/>
+                                                                            <f:selectItems value="#{applicationBackingCode.colleges}"/>
+                                                                        </h:selectOneMenu>  
+
+                                                                        <p:message for="dd_college" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Department:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td >
+                                                                        <h:selectOneMenu id="dd_dept"  value="#{courseMBean.recordDto.deptId}" style="width: 280px; height: 30px;">                                                                           
+                                                                            <f:selectItem itemLabel="Choose Department" itemValue=""/>
+                                                                            <f:selectItems value="#{courseMBean.departmentMap}"/>
+                                                                        </h:selectOneMenu>  
+                                                                        <p:message for="dd_dept" />
+                                                                    </td>
+                                                                </tr> 
+                                                            </table>
+
+                                                            <div class="form-section-title2">Course Details</div>
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">Level:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:selectOneMenu id="dd_level" style="width: 290px; height: 30px;" value="#{courseMBean.recordDto.levelId}">
+                                                                            <f:selectItem itemLabel="Choose" itemValue=""/>
+                                                                            <f:selectItems value="#{applicationBackingCode.academicLevel}"/>
+                                                                        </h:selectOneMenu>   
+
+                                                                        <p:message for="dd_level" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Semester:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td >
+                                                                        <h:selectOneMenu id="dd_semester" style="width: 290px; height: 30px;" value="#{courseMBean.recordDto.semesterId}">
+                                                                            <f:selectItem itemLabel="Choose" itemValue=""/>
+                                                                            <f:selectItems value="#{applicationBackingCode.academicSemester}"/>
+                                                                        </h:selectOneMenu>   
+                                                                        <p:message for="dd_semester" />
+                                                                    </td>                                                                   
+
+                                                                </tr> 
+                                                            </table>
+                                                            <br />
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label" valign="top" width="20">Code:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>                                                                        
+                                                                        <h:inputText id="txt_course_code" value="#{courseMBean.recordDto.courseCode}"
+                                                                                     styleClass="form-control" style="width: 280px; height: 30px;" autocomplete="off"/>
+                                                                        <p:watermark value="Course code" for="txt_course_code"  />                                                                      
+
+                                                                        <p:message for="txt_course_code" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Title:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td >
+                                                                        <h:inputText id="txt_course_description" value="#{courseMBean.recordDto.description}"
+                                                                                     style="width: 330px; height: 30px;" autocomplete="off"/>
+                                                                        <p:watermark value="Course tile" for="txt_course_description"  />
+                                                                        <p:message for="txt_course_description" />
+                                                                    </td>                                                                 
+
+                                                                </tr> 
+                                                            </table>
+                                                            <br />
+
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label" valign="top" width="20">Unit:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>                                                                        
+                                                                        <h:inputText id="txt_course_unit" value="#{courseMBean.recordDto.courseUnit}"
+                                                                                     styleClass="form-control" style="width: 280px; height: 30px;" autocomplete="off"/>
+                                                                        <p:watermark value="Course Unit" for="txt_course_unit"  />                                                                      
+
+                                                                        <p:message for="txt_course_unit" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Course Type:<span class="required-indicator">*</span></td>
+
+                                                                    <td width="5"></td>
+                                                                    <td >
+                                                                        <h:selectOneMenu id="dd_course_type" style="width: 280px; height: 30px;" value="#{courseMBean.recordDto.courseType}">
+                                                                            <f:selectItem itemLabel="Choose Course Type" itemValue=""/>
+                                                                            <f:selectItems value="#{applicationBackingCode.courseType}"/>
+                                                                        </h:selectOneMenu> 
+                                                                        <p:message for="dd_course_type" />
+                                                                    </td>                                                                 
+
+                                                                </tr> 
+                                                            </table>
+
+
+                                                            <div class="form-section-title2"></div>
+
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label">
+                                                                        <p:commandLink  actionListener="#{courseMBean.createAction}"
+                                                                                        styleClass="btn btn-success btn-lg"
+                                                                                        style="color: #fff;font-size: 16px !important;font-weight: normal;"
+                                                                                        process="new-record-panel" update="new-record-panel,item-listing-panel,global_msg">
+                                                                            <i class="fa fa-send-o"></i> Submit
+                                                                        </p:commandLink>
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </div>
+
+                                                    </div>
+                                                </h:panelGroup>
+                                            </p:dialog>
+
+                                            <!-- end create new record dialog -->
+
+
+                                            <!-- edit  record dialog -->
+                                            <p:dialog id="edit_record_Dialog" header="Edit Course" widgetVar="editDialog" resizable="false"  
+                                                      width="800" modal="true" position='500, 200' style="z-index: 11000 !important;">  
+                                                <h:panelGroup id="edit-record-panel">
+                                                    <p:messages />
+
+                                                    <div class="row" style="margin: 0 10px;">                                                      
+
+
+                                                        <div class="row" style="padding-left: 20px;">
+
+                                                            <h:inputHidden id="edit_global_msg" />
+                                                            <p:messages for="edit_global_msg" />  
+                                                            
+                                                            <div class="form-section-title2">College And Department Details</div>
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">College:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:selectOneMenu id="edit_dd_college"  value="#{courseMBean.editRecordDto.collegeId}" style="width: 280px; height: 30px;">
+                                                                            <p:ajax process="@this" update="edit_dd_dept" listener="#{courseMBean.handleCollegeChanged}" />
+                                                                            <f:selectItem itemLabel="Choose College" itemValue=""/>
+                                                                            <f:selectItems value="#{applicationBackingCode.colleges}"/>
+                                                                        </h:selectOneMenu>  
+
+                                                                        <p:message for="edit_dd_college" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Department:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td >
+                                                                        <h:selectOneMenu id="edit_dd_dept"  value="#{courseMBean.editRecordDto.deptId}" style="width: 280px; height: 30px;">                                                                           
+                                                                            <f:selectItem itemLabel="Choose Department" itemValue=""/>
+                                                                            <f:selectItems value="#{courseMBean.departmentMap}"/>
+                                                                        </h:selectOneMenu>  
+                                                                        <p:message for="edit_dd_dept" />
+                                                                    </td>
+                                                                </tr> 
+                                                            </table>
+
+                                                            <div class="form-section-title2">Course Details</div>
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">Level:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:selectOneMenu id="edit_dd_level" style="width: 290px; height: 30px;" value="#{courseMBean.editRecordDto.levelId}">
+                                                                            <f:selectItem itemLabel="Choose" itemValue=""/>
+                                                                            <f:selectItems value="#{applicationBackingCode.academicLevel}"/>
+                                                                        </h:selectOneMenu>   
+
+                                                                        <p:message for="edit_dd_level" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Semester:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td >
+                                                                        <h:selectOneMenu id="edit_dd_semester" style="width: 290px; height: 30px;" value="#{courseMBean.editRecordDto.semesterId}">
+                                                                            <f:selectItem itemLabel="Choose" itemValue=""/>
+                                                                            <f:selectItems value="#{applicationBackingCode.academicSemester}"/>
+                                                                        </h:selectOneMenu>   
+                                                                        <p:message for="edit_dd_semester" />
+                                                                    </td>                                                                   
+
+                                                                </tr> 
+                                                            </table>
+                                                            <br />
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label" valign="top" width="20">Code:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>                                                                        
+                                                                        <h:inputText id="edit_txt_course_code" value="#{courseMBean.editRecordDto.courseCode}"
+                                                                                     style="width: 280px; height: 30px;" autocomplete="off"/>
+                                                                        <p:watermark value="Course code" for="edit_txt_course_code"  />                                                                      
+
+                                                                        <p:message for="edit_txt_course_code" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Title:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td >
+                                                                        <h:inputText id="edit_txt_course_description" value="#{courseMBean.editRecordDto.description}"
+                                                                                     style="width: 330px; height: 30px;" autocomplete="off"/>
+                                                                        <p:watermark value="Course tile" for="edit_txt_course_description"  />
+                                                                        <p:message for="edit_txt_course_description" />
+                                                                    </td>                                                                 
+
+                                                                </tr> 
+                                                            </table>
+                                                            <br />
+
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label" valign="top" width="20">Unit:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>                                                                        
+                                                                        <h:inputText id="edit_txt_course_unit" value="#{courseMBean.editRecordDto.courseUnit}"
+                                                                                     styleClass="form-control" style="width: 280px; height: 30px;" autocomplete="off"/>
+                                                                        <p:watermark value="Course Unit" for="edit_txt_course_unit"  />                                                                      
+
+                                                                        <p:message for="edit_txt_course_unit" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Course Type:<span class="required-indicator">*</span></td>
+
+                                                                    <td width="5"></td>
+                                                                    <td >
+                                                                        <h:selectOneMenu id="edit_dd_course_type" style="width: 280px; height: 30px;" value="#{courseMBean.editRecordDto.courseType}">
+                                                                            <f:selectItem itemLabel="Choose Course Type" itemValue=""/>
+                                                                            <f:selectItems value="#{applicationBackingCode.courseType}"/>
+                                                                        </h:selectOneMenu> 
+                                                                        <p:message for="edit_dd_course_type" />
+                                                                    </td>                                                                 
+
+                                                                </tr> 
+                                                            </table>
+
+
+                                                            <div class="form-section-title2"></div>
+
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label">
+                                                                        <p:commandLink  actionListener="#{courseMBean.updateAction}"
+                                                                                        styleClass="btn btn-success btn-lg"
+                                                                                        style="color: #fff;font-size: 16px !important;font-weight: normal;"
+                                                                                        process="edit-record-panel" update="edit-record-panel,item-listing-panel,edit_global_msg">
+                                                                            <i class="fa fa-send-o"></i> Submit
+                                                                        </p:commandLink>
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </div>
+
+                                                    </div>
+                                                </h:panelGroup>
+                                            </p:dialog>
+
+                                            <!-- end edit record dialog -->
+
+
+                                        </h:form>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="#{request.contextPath}/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="#{request.contextPath}/vendor/jquery.nicescroll-v3.6.8/jquery.nicescroll.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#profile-leftnav").niceScroll({cursorcolor: "#009E54"});
+            });
+            function openFancyBoxImage(url, title) {
+                $.fancybox.open({
+                    autoSize: false,
+                    width: '80%',
+                    height: '90%',
+                    href: '' + url + '',
+                    title: title,
+                    padding: 2,
+                    transitionIn: 'elastic',
+                    transitionOut: 'elastic',
+                    helpers: {
+                        overlay: {
+                            closeClick: false
+                        }
+                    }
+                });
+                return false;
+            }
+
+            function openFancyBoxPdf(url, title) {
+                $.fancybox.open({
+                    autoSize: false,
+                    width: 900,
+                    height: 650,
+                    href: '' + url + '',
+                    title: title,
+                    type: 'iframe',
+                    padding: 2,
+                    transitionIn: 'elastic',
+                    transitionOut: 'elastic',
+                    helpers: {
+                        overlay: {
+                            closeClick: false
+                        }
+                    }
+                });
+                return false;
+            }
+
+            function openFancyBoxIframe(url, cWidth, cHeight) {
+                $.fancybox.open({
+                    autoSize: false,
+                    width: cWidth,
+                    height: cHeight,
+                    href: '' + url + '',
+                    type: 'iframe',
+                    padding: 2,
+                    transitionIn: 'elastic',
+                    transitionOut: 'elastic',
+                    helpers: {
+                        overlay: {
+                            closeClick: false
+                        }
+                    },
+                    afterClose: function () { // USE THIS IT IS YOUR ANSWER THE KEY WORD IS "afterClose"
+                        parent.location.reload(true);
+                    }
+                });
+                return false;
+            }
+        </script>
+
+    </ui:define>
+
+</ui:composition>

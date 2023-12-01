@@ -1,0 +1,683 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../../../WEB-INF/templates/adminTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"                
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"                
+                xmlns="http://www.w3.org/1999/xhtml">  
+
+
+    <ui:define name="title_additional_caption">
+        ::- Blank
+    </ui:define>
+
+    <ui:define name="additional_css_jscript">
+        <link href="#{request.contextPath}/resources/css/pf-fix.css" rel="stylesheet" type="text/css"/>
+        <link href="#{request.contextPath}/resources/css/form-styles.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/css/personnel-profile.css"/>
+
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/vendor/fancybox/jquery.fancybox.css"/>
+
+        <script src="#{request.contextPath}/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="#{request.contextPath}/vendor/select2-4.0.3/js/select2.min.js"></script>
+
+    </ui:define>
+
+    <ui:define name="page_toolbar_left">
+        Manage Users Interface
+    </ui:define>
+
+    <ui:define name="page_toolbar_right">
+
+    </ui:define>
+
+    <ui:define name="content"> 
+        <div class="row clearfix" style="margin-top: 10px !important; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+            <div class="col-sm-12">                
+                <section id="main-content">
+                    <section class="wrapper">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel">
+
+                                    <div class="panel-body" style="font-size: 12px !important;">
+                                        <h:form prependId="false">
+                                            <p:growl id="gowl-msg" />
+
+
+                                            <div class="app-searchbox">
+                                                <h:panelGroup id="search-panel">
+                                                    <table class="app-formtable2">
+                                                        <tr>
+                                                            <td width="120" class="app-label font-siz-10pt">
+                                                                Surname:
+                                                            </td>
+                                                            <td width="122">
+                                                                <h:inputText id="start_date" value="#{newUserBiodataMBean.srchUsername}"
+                                                                             styleClass="form-control" style="width:150px;" autocomplete="off"
+                                                                             readonly="false"/> 
+                                                            </td>
+                                                            <td width="5"></td>
+
+
+                                                            <td width="5"></td>
+                                                            <td width="35" class="app-label font-siz-10pt">
+                                                                Status:
+                                                            </td>
+                                                            <td width="150">
+                                                                <h:selectOneMenu class="college-select" style="width: 150px; height: 30px;" value="#{newUserBiodataMBean.srchProfileType}">
+                                                                    <f:selectItem itemLabel="Choose" itemValue=""/>
+                                                                    <f:selectItems value="#{applicationBackingCode.userPrimaryRole}"/>
+                                                                </h:selectOneMenu>       
+                                                            </td>
+                                                            <td width="5"></td>
+
+                                                            <td>
+                                                                <p:commandLink styleClass="btn btn-primary"
+                                                                               style="color: #fff; height: 30px;"
+                                                                               actionListener="#{newUserBiodataMBean.searchAction}"
+                                                                               process="search-panel"
+                                                                               update="item-listing-panel"
+                                                                               > 
+                                                                    <i class="fa fa-search"></i> Search
+                                                                </p:commandLink>
+
+
+                                                                <p:commandLink process="search-panel" update="item-listing-panel,pagertxt"
+                                                                               actionListener="#{newUserBiodataMBean.resetAction}"
+                                                                               styleClass="btn btn-outline btn-icon" style="margin-left: 10px; color: #000;">
+                                                                    <i class="fa fa-refresh"></i> Reset
+                                                                </p:commandLink>    
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                </h:panelGroup>
+                                            </div>
+
+
+                                            <div class="toolbardiv">
+                                                <div class="cp-paginatordiv">
+                                                    <h:commandLink styleClass="inpage-links" value="&laquo;Previous" actionListener="#{newUserBiodataMBean.previousPage}"/>
+                                                    <span class="buttonsep">|</span>
+                                                    <h:commandLink styleClass="inpage-links" value="Next" actionListener="#{newUserBiodataMBean.nextPage}" />                                                   
+
+                                                    <h:outputText value="#{newUserBiodataMBean.paginationDescription}" id="pagertxt" style="margin-left: 15px;"/>
+                                                </div>
+
+
+
+                                                <div style="float: right;margin-right: 20px;">
+
+                                                    <p:commandLink  class="btn btn-success btn-sm" style="color: #fff; border-radius: 10px; height: 30px;" 
+                                                                    oncomplete="PF('addNewDialog').show();">
+                                                        Add A New User <i class="fa fa-plus"></i>
+                                                    </p:commandLink>
+
+                                                </div>
+                                                <div style="clear: both; margin-bottom: 10px;"></div>
+                                            </div>
+
+
+                                            <div class="datagriddiv">
+
+                                                <h:panelGroup id="item-listing-panel">
+                                                    <div style="overflow-x: auto;">
+                                                        <table class="table table-responsive table-hover table-bordered">
+                                                            <thead>
+                                                                <th style="display: none;">S/No</th>
+                                                                <th>PF./matric No</th>  
+                                                                <th>Last Name</th>
+                                                                <th>Other Names</th>  
+                                                                <th>Phone No.</th>  
+                                                                <th>Email Address</th> 
+                                                                <th>College/Faculty</th>  
+                                                                <th>Department</th>  
+
+                                                                <th>Role</th>
+                                                                <th>Status</th>
+                                                                <th></th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <ui:repeat var="record" value="#{newUserBiodataMBean.recordList}" varStatus="serialNo" >
+                                                                    <tr>
+                                                                        <td style="display: none;">                                       
+                                                                            <h:outputLabel value="#{serialNo.index}" />
+                                                                        </td>
+                                                                        <td>   
+                                                                            #{record.matricNo}
+
+                                                                        </td>        
+                                                                        <td>   
+                                                                            #{record.surname}
+
+                                                                        </td>        
+                                                                        <td>   
+                                                                            #{record.otherNames}
+
+                                                                        </td>   
+                                                                        <td>   
+                                                                            #{record.priPhoneNo}
+
+                                                                        </td>   
+                                                                        <td>   
+                                                                            #{record.priEmailAddress}
+
+                                                                        </td>   
+                                                                        <td>   
+                                                                            #{record.collegeDesc}
+
+                                                                        </td>      
+                                                                        <td>   
+                                                                            #{record.departmentDesc}
+
+                                                                        </td>      
+
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.profileType}" />  
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.recordStatus}" />  
+                                                                        </td>
+                                                                        
+                                                                        <td>                                                                             
+
+                                                                            <p:commandLink oncomplete="PF('editDialog').show()"
+                                                                                           styleClass="gridlinks btn btn-sm btn-danger" style="color: #fff;"
+                                                                                           action="#{newUserBiodataMBean.prepareUpdateByLink(record.recordId)}">
+                                                                                <i class="fa fa-folder-open-o"></i>
+
+                                                                            </p:commandLink>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </ui:repeat>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </h:panelGroup>
+                                            </div>
+
+                                            <!-- create new record dialog -->
+                                            <p:dialog id="new_record_Dialog" header="Add New User" widgetVar="addNewDialog" resizable="false"  
+                                                      width="800" modal="true" position='500, 200' style="z-index: 11000 !important;">  
+                                                <h:panelGroup id="new-record-panel">
+                                                    <p:messages />
+                                                    <br />
+                                                    <div class="row" style="margin: 0 20px;">                                                      
+
+
+                                                        <div class="row" style="padding-left: 20px;">
+
+                                                            <h:inputHidden id="global_msg" />
+                                                            <p:messages for="global_msg" />
+
+
+
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label" valign="top"><b>File/Matric No.:</b><span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:inputText id="txt_file_no" value="#{newUserBiodataMBean.recordDto.matricNo}"
+                                                                                     styleClass="form-control" style="width: 250px;" autocomplete="off"/>
+
+                                                                        <p:message for="txt_file_no" />
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                            <div class="form-section-title2">Bio Data</div>
+
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">Surname:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td  colspan="5">
+                                                                        <h:inputText id="txt_surname" value="#{newUserBiodataMBean.recordDto.surname}"
+                                                                                     styleClass="form-control" style="width: 250px;" autocomplete="off"/>
+
+                                                                        <p:message for="txt_surname" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">Other Names:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td colspan="5">
+                                                                        <h:inputText id="txt_othernames" value="#{newUserBiodataMBean.recordDto.otherNames}"
+                                                                                     styleClass="form-control" style="width: 250px;" autocomplete="off"/>
+
+                                                                        <p:message for="txt_othernames" />
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">Gender:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:selectOneMenu id="dd_gender" value="#{newUserBiodataMBean.recordDto.gender}"
+                                                                                         styleClass="form-control" style="width: 250px;" >
+                                                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                            <f:selectItems value="#{applicationBackingCode.gender}" />
+                                                                        </h:selectOneMenu>
+
+                                                                        <p:message for="dd_gender" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Marital Status:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:selectOneMenu id="dd_marital_status" value="#{newUserBiodataMBean.recordDto.maritalStatusId}"
+                                                                                         styleClass="form-control" style="width: 250px;" >
+                                                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                            <f:selectItems value="#{applicationBackingCode.maritalStatus}" />
+                                                                        </h:selectOneMenu>
+
+                                                                        <p:message for="dd_marital_status" />
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">Phone:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:inputText id="txt_prim_phone" value="#{newUserBiodataMBean.recordDto.priPhoneNo}"
+                                                                                     styleClass="form-control" style="width: 250px;" autocomplete="off" maxlength="11"/>
+
+                                                                        <p:message for="txt_prim_phone" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Email:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td >
+                                                                        <h:inputText id="txt_prim_email" value="#{newUserBiodataMBean.recordDto.priEmailAddress}"
+                                                                                     styleClass="form-control" style="width: 250px;" autocomplete="off"/>
+
+                                                                        <p:message for="txt_prim_email" />
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+
+                                                            <div class="form-section-title2">Other Information</div>
+
+                                                            <table class="app-formtable">
+
+
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">College:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:selectOneMenu id="dd_college" value="#{newUserBiodataMBean.recordDto.collegeId}"
+                                                                                         styleClass="form-control" style="width: 250px;" >
+
+                                                                            <p:ajax listener="#{newUserBiodataMBean.handleCollegeChanged}" 
+                                                                                    process="@this" update="dd_dept"/>
+
+                                                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                            <f:selectItems value="#{applicationBackingCode.colleges}" />
+                                                                        </h:selectOneMenu>
+
+                                                                        <p:message for="dd_college" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Department:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td >
+                                                                        <h:selectOneMenu id="dd_dept" value="#{newUserBiodataMBean.recordDto.departmentId}"
+                                                                                         styleClass="form-control" style="width: 250px;" >
+
+                                                                            <p:ajax listener="#{newUserBiodataMBean.handleDepartmentChanged}" 
+                                                                                    process="@this"/>
+
+                                                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                            <f:selectItems value="#{newUserBiodataMBean.departmentMap}" />
+                                                                        </h:selectOneMenu>
+
+                                                                        <p:message for="dd_dept" />
+                                                                    </td>
+                                                                </tr> 
+                                                            </table>
+
+                                                            <div class="form-section-title2">User Primary Role</div>
+
+                                                            <table class="app-formtable">  
+
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">Primary Role:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:selectOneMenu id="dd_profile_type" value="#{newUserBiodataMBean.recordDto.profileType}"
+                                                                                         styleClass="form-control" style="width: 250px;" >
+                                                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                            <f:selectItems value="#{applicationBackingCode.userPrimaryRole}" />
+                                                                        </h:selectOneMenu>
+
+
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top" style="display: none;">Department:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td style="display: none;">
+
+                                                                    </td>
+                                                                </tr>  
+                                                            </table>
+
+
+                                                            <div class="form-section-title2"></div>
+
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label">
+                                                                        <p:commandLink  actionListener="#{newUserBiodataMBean.createAction}"
+                                                                                        styleClass="btn btn-success btn-lg"
+                                                                                        style="color: #fff;font-size: 16px !important;font-weight: normal;"
+                                                                                        process="new-record-panel" update="new-record-panel,item-listing-panel,gowl-msg">
+                                                                            <i class="fa fa-send-o"></i> Submit
+                                                                        </p:commandLink>
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </div>
+
+                                                    </div>
+                                                </h:panelGroup>
+                                            </p:dialog>
+
+                                            <!-- end create new record dialog -->
+
+
+                                            <!-- edit record dialog -->
+                                            <p:dialog id="edit_record_Dialog" header="Edit User" widgetVar="editDialog" resizable="false"  
+                                                      width="800" modal="true" position='500, 200' style="z-index: 11000 !important;">  
+                                                <h:panelGroup id="edit-record-panel">
+                                                    <p:messages />
+                                                    <br />
+                                                    <div class="row" style="margin: 0 20px;">                                                      
+
+
+                                                        <div class="row" style="padding-left: 20px;">
+
+                                                            <h:inputHidden id="edit_global_msg" />
+                                                            <p:messages for="edit_global_msg" />
+
+
+
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label" valign="top"><b>File/Matric No.:</b><span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:inputText id="edit_txt_file_no" value="#{newUserBiodataMBean.editRecordDto.matricNo}"
+                                                                                     styleClass="form-control" style="width: 250px;" autocomplete="off"/>
+
+                                                                        <p:message for="edit_txt_file_no" />
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                            <div class="form-section-title2">Bio Data</div>
+
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">Surname:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td  colspan="5">
+                                                                        <h:inputText id="edit_txt_surname" value="#{newUserBiodataMBean.editRecordDto.surname}"
+                                                                                     styleClass="form-control" style="width: 250px;" autocomplete="off"/>
+
+                                                                        <p:message for="edit_txt_surname" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">Other Names:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td colspan="5">
+                                                                        <h:inputText id="edit_txt_othernames" value="#{newUserBiodataMBean.editRecordDto.otherNames}"
+                                                                                     styleClass="form-control" style="width: 250px;" autocomplete="off"/>
+
+                                                                        <p:message for="edit_txt_othernames" />
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">Gender:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:selectOneMenu id="edit_dd_gender" value="#{newUserBiodataMBean.editRecordDto.gender}"
+                                                                                         styleClass="form-control" style="width: 250px;" >
+                                                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                            <f:selectItems value="#{applicationBackingCode.gender}" />
+                                                                        </h:selectOneMenu>
+
+                                                                        <p:message for="edit_dd_gender" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Marital Status:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:selectOneMenu id="edit_dd_marital_status" value="#{newUserBiodataMBean.editRecordDto.maritalStatusId}"
+                                                                                         styleClass="form-control" style="width: 250px;" >
+                                                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                            <f:selectItems value="#{applicationBackingCode.maritalStatus}" />
+                                                                        </h:selectOneMenu>
+
+                                                                        <p:message for="edit_dd_marital_status" />
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">Phone:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:inputText id="edit_txt_prim_phone" value="#{newUserBiodataMBean.editRecordDto.priPhoneNo}"
+                                                                                     styleClass="form-control" style="width: 250px;" autocomplete="off" maxlength="11"/>
+
+                                                                        <p:message for="edit_txt_prim_phone" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Email:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td >
+                                                                        <h:inputText id="edit_txt_prim_email" value="#{newUserBiodataMBean.editRecordDto.priEmailAddress}"
+                                                                                     styleClass="form-control" style="width: 250px;" autocomplete="off" readonly="true"/>
+
+                                                                        <p:message for="edit_txt_prim_email" />
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+
+                                                            <div class="form-section-title2">Other Information</div>
+
+                                                            <table class="app-formtable">
+
+
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">College:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:selectOneMenu id="edit_dd_college" value="#{newUserBiodataMBean.editRecordDto.collegeId}"
+                                                                                         styleClass="form-control" style="width: 250px;" >
+
+                                                                            <p:ajax listener="#{newUserBiodataMBean.handleCollegeChanged}" 
+                                                                                    process="@this" update="edit_dd_dept"/>
+
+                                                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                            <f:selectItems value="#{applicationBackingCode.colleges}" />
+                                                                        </h:selectOneMenu>
+
+                                                                        <p:message for="edit_dd_college" />
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top">Department:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td >
+                                                                        <h:selectOneMenu id="edit_dd_dept" value="#{newUserBiodataMBean.editRecordDto.departmentId}"
+                                                                                         styleClass="form-control" style="width: 250px;" >
+
+                                                                            <p:ajax listener="#{newUserBiodataMBean.handleDepartmentChanged}" 
+                                                                                    process="@this"/>
+
+                                                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                            <f:selectItems value="#{newUserBiodataMBean.departmentMap}" />
+                                                                        </h:selectOneMenu>
+
+                                                                        <p:message for="edit_dd_dept" />
+                                                                    </td>
+                                                                </tr> 
+                                                            </table>
+
+                                                            <div class="form-section-title2">User Primary Role</div>
+
+                                                            <table class="app-formtable">  
+
+                                                                <tr>
+                                                                    <td class="app-label" valign="top">Primary Role:<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+                                                                        <h:selectOneMenu id="edit_dd_profile_type" value="#{newUserBiodataMBean.editRecordDto.profileType}"
+                                                                                         styleClass="form-control" style="width: 250px;" >
+                                                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                            <f:selectItems value="#{applicationBackingCode.userPrimaryRole}" />
+                                                                        </h:selectOneMenu>
+
+
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td class="app-label" valign="top" style="display: block;">Status<span class="required-indicator">*</span></td>
+                                                                    <td width="5"></td>
+                                                                    <td style="display: block;">
+                                                                        <h:selectOneMenu value="#{newUserBiodataMBean.editRecordDto.recordStatus}" style="width: 200px;">
+                                                                            <f:selectItem itemLabel="Any" itemValue="Any" />
+                                                                            <f:selectItem itemLabel="ACTIVE" itemValue="ACTIVE" />
+                                                                            <f:selectItem itemLabel="INACTIVE" itemValue="INACTIVE" />
+                                                                        </h:selectOneMenu>  
+                                                                    </td>
+                                                                </tr>  
+                                                            </table>
+
+
+                                                            <div class="form-section-title2"></div>
+
+                                                            <table class="app-formtable">
+                                                                <tr>
+                                                                    <td class="app-label">
+                                                                        <p:commandLink  actionListener="#{newUserBiodataMBean.updateAction}"
+                                                                                        styleClass="btn btn-success btn-lg"
+                                                                                        style="color: #fff;font-size: 16px !important;font-weight: normal;"
+                                                                                        process="edit-record-panel" update="edit-record-panel,item-listing-panel,edit_global_msg">
+                                                                            <i class="fa fa-send-o"></i> Submit
+                                                                        </p:commandLink>
+                                                                    </td>
+                                                                    <td width="5"></td>
+                                                                    <td>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </div>
+
+                                                    </div>
+                                                </h:panelGroup>
+                                            </p:dialog>
+
+                                            <!-- end edit record dialog -->
+
+
+                                        </h:form>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="#{request.contextPath}/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="#{request.contextPath}/vendor/jquery.nicescroll-v3.6.8/jquery.nicescroll.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#profile-leftnav").niceScroll({cursorcolor: "#009E54"});
+            });
+            function openFancyBoxImage(url, title) {
+                $.fancybox.open({
+                    autoSize: false,
+                    width: '80%',
+                    height: '90%',
+                    href: '' + url + '',
+                    title: title,
+                    padding: 2,
+                    transitionIn: 'elastic',
+                    transitionOut: 'elastic',
+                    helpers: {
+                        overlay: {
+                            closeClick: false
+                        }
+                    }
+                });
+                return false;
+            }
+
+            function openFancyBoxPdf(url, title) {
+                $.fancybox.open({
+                    autoSize: false,
+                    width: 900,
+                    height: 650,
+                    href: '' + url + '',
+                    title: title,
+                    type: 'iframe',
+                    padding: 2,
+                    transitionIn: 'elastic',
+                    transitionOut: 'elastic',
+                    helpers: {
+                        overlay: {
+                            closeClick: false
+                        }
+                    }
+                });
+                return false;
+            }
+
+            function openFancyBoxIframe(url, cWidth, cHeight) {
+                $.fancybox.open({
+                    autoSize: false,
+                    width: cWidth,
+                    height: cHeight,
+                    href: '' + url + '',
+                    type: 'iframe',
+                    padding: 2,
+                    transitionIn: 'elastic',
+                    transitionOut: 'elastic',
+                    helpers: {
+                        overlay: {
+                            closeClick: false
+                        }
+                    },
+                    afterClose: function () { // USE THIS IT IS YOUR ANSWER THE KEY WORD IS "afterClose"
+                        parent.location.reload(true);
+                    }
+                });
+                return false;
+            }
+        </script>
+
+    </ui:define>
+
+</ui:composition>

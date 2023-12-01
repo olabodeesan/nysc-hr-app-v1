@@ -1,0 +1,429 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../../../WEB-INF/templates/adminTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"                
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"                
+                xmlns="http://www.w3.org/1999/xhtml">  
+
+
+    <ui:define name="title_additional_caption">
+        ::- Blank
+    </ui:define>
+
+    <ui:define name="additional_css_jscript">
+        <link href="#{request.contextPath}/resources/css/pf-fix.css" rel="stylesheet" type="text/css"/>
+        <link href="#{request.contextPath}/resources/css/form-styles.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/css/personnel-profile.css"/>
+
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/vendor/fancybox/jquery.fancybox.css"/>
+
+        <script src="#{request.contextPath}/vendor/fancybox/jquery.fancybox.js"></script>
+
+<!--          <link rel="stylesheet" href="#{request.contextPath}/vendor/select2-4.0.3/select2.min.css"/>-->
+
+
+    </ui:define>
+
+    <ui:define name="page_toolbar_left">
+        Journal/Scholar Interface
+    </ui:define>
+
+    <ui:define name="page_toolbar_right">
+
+    </ui:define>
+
+    <ui:define name="content"> 
+        <div class="row clearfix" style="margin-top: 10px !important; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+            <div class="col-sm-12">                
+                <section id="main-content">
+                    <section class="wrapper">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel">
+
+                                    <div class="panel-body" style="font-size: 12px !important;">
+                                        <h:form prependId="false">
+                                            <p:growl id="gowl-msg" />
+
+
+                                            <div class="app-searchbox">
+                                                <h:panelGroup id="search-panel">
+                                                    <table class="app-formtable2">
+                                                        <tr>
+                                                            <td width="120" class="app-label font-siz-10pt" style="display: none;">
+                                                                Journal name:
+                                                            </td>
+                                                            <td width="122" style="display: none;">
+                                                                <h:inputText id="start_date" value="#{journalMBean.srchDescription}"
+                                                                             styleClass="form-control" style="width:150px;" autocomplete="off"
+                                                                             readonly="false"/> 
+                                                            </td>
+                                                            <td width="5" style="display: none;"></td>
+
+
+                                                            <td width="5"></td>
+                                                            <td width="35" class="app-label font-siz-10pt">
+                                                                Status:
+                                                            </td>
+                                                            <td width="150">
+                                                                <h:selectOneMenu value="#{journalMBean.srchRecordStatus}" style="width: 150px;">
+                                                                    <f:selectItem itemLabel="Any" itemValue="Any" />
+                                                                    <f:selectItem itemLabel="ACTIVE" itemValue="ACTIVE" />
+                                                                    <f:selectItem itemLabel="INACTIVE" itemValue="INACTIVE" />
+                                                                </h:selectOneMenu>
+                                                            </td>
+                                                            <td width="5"></td>
+
+                                                            <td>
+                                                                <p:commandLink styleClass="btn btn-primary"
+                                                                               style="color: #fff; height: 30px;"
+                                                                               actionListener="#{journalMBean.searchAction}"
+                                                                               process="search-panel"
+                                                                               update="item-listing-panel"
+                                                                               > 
+                                                                    <i class="fa fa-search"></i> Search
+                                                                </p:commandLink>
+
+
+                                                                <p:commandLink process="search-panel" update="item-listing-panel,pagertxt"
+                                                                               actionListener="#{journalMBean.resetAction}"
+                                                                               styleClass="btn btn-outline btn-icon" style="margin-left: 10px; color: #000;">
+                                                                    <i class="fa fa-refresh"></i> Reset
+                                                                </p:commandLink>    
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                </h:panelGroup>
+                                            </div>
+
+
+                                            <div class="toolbardiv">
+                                                <div class="cp-paginatordiv">
+                                                    <h:commandLink styleClass="inpage-links" value="&laquo;Previous" actionListener="#{journalMBean.previousPage}"/>
+                                                    <span class="buttonsep">|</span>
+                                                    <h:commandLink styleClass="inpage-links" value="Next" actionListener="#{journalMBean.nextPage}" />                                                   
+
+                                                    <h:outputText value="#{journalMBean.paginationDescription}" id="pagertxt" style="margin-left: 15px;"/>
+                                                </div>
+
+
+
+                                                <div style="float: right;margin-right: 20px;">
+
+                                                    <p:commandLink  class="btn btn-success btn-sm" style="color: #fff; border-radius: 10px; height: 30px;" 
+                                                                    oncomplete="PF('addNewDialog').show();"  rendered="#{sessionScope['CURRENT_USER'].profileType ne 'STUDENT'}">
+                                                        Add A New Journal <i class="fa fa-plus"></i>
+                                                    </p:commandLink>
+
+                                                </div>
+                                                <div style="clear: both; margin-bottom: 10px;"></div>
+                                            </div>
+
+
+                                            <div class="datagriddiv">
+
+                                                <h:panelGroup id="item-listing-panel">
+                                                    <div style="overflow-x: auto;">
+                                                        <table class="table table-responsive table-hover table-bordered">
+                                                            <thead>
+                                                                <th style="display: none;">S/No</th>   
+                                                                <th width="180"></th>
+                                                                <th>Journal Name</th> 
+                                                                <th>Journal URL</th>                                                                 
+                                                                <th>Approval Status</th>
+                                                                <th>Status</th>
+                                                                <th></th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <ui:repeat var="record" value="#{journalMBean.recordList}" varStatus="serialNo" >
+                                                                    <tr>
+                                                                        <td>  
+                                                                            <c:if test="#{sessionScope['CURRENT_USER'].profileType eq 'STUDENT'}">
+                                                                                <a href="#{record.journalUrl}" target="_blank" class="btn btn-success btn-icon imsu-secondary-bkg-color"
+                                                                                   style="display: #{record.isApproved eq 'Y' ? 'block' : 'none'};">
+                                                                                    Open Journal Page
+                                                                                </a>
+                                                                            </c:if>
+
+                                                                            <c:if test="#{sessionScope['CURRENT_USER'].profileType ne 'STUDENT'}">
+                                                                                <a href="#{record.journalUrl}" target="_blank" class="btn btn-success btn-icon imsu-secondary-bkg-color">
+                                                                                    Open Journal Page
+                                                                                </a>
+                                                                            </c:if>
+
+                                                                        </td>  
+
+                                                                        <td>                                       
+                                                                            <h:outputLabel value="#{record.journalName}" />
+                                                                        </td>  
+
+                                                                        <td>                                       
+                                                                            <h:outputLabel value="#{record.journalUrl}" />
+                                                                        </td>  
+
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.isApproved eq 'Y' ? 'JOURNAL APPROVED' : 'PENDING APPROVAL'}"
+                                                                                           style="background: #{record.isApproved eq 'Y' ? '#019242' : '#FF1919'}; padding: 5px; color: #fff; border-radius: 3px;"/>  
+
+                                                                            &nbsp;&nbsp; &nbsp;&nbsp; 
+                                                                            <p:commandLink oncomplete="PF('approveDialog').show()" 
+                                                                                           styleClass="gridlinks btn btn-sm btn-warning" style="color: #fff; text-decoration: none;"
+                                                                                           action="#{journalMBean.prepareApprovalByLink(record.id)}"
+                                                                                           rendered="#{record.isApproved eq 'N' and sessionScope['CURRENT_USER'].profileType eq 'SUPERADMIN' 
+                                                                                                       or sessionScope['CURRENT_USER'].profileType eq 'HOD'}">
+                                                                                <i class="fa fa-check"></i> Approve Journal
+
+                                                                            </p:commandLink>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.recordStatus}" />  
+                                                                        </td>
+                                                                        <td>   
+                                                                            <c:if test="#{sessionScope['CURRENT_USER'].profileType eq 'SUPERADMIN' or 
+                                                                                          sessionScope['CURRENT_USER'].profileType eq 'HOD'}">
+                                                                                <p:commandLink oncomplete="PF('editDialog').show()"
+                                                                                               styleClass="gridlinks btn btn-sm btn-danger" style="color: #fff;"
+                                                                                               action="#{journalMBean.prepareUpdateByLink(record.id)}">
+                                                                                    <i class="fa fa-folder-open-o"></i>
+
+                                                                                </p:commandLink>
+                                                                            </c:if>
+
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </ui:repeat>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </h:panelGroup>
+                                            </div>
+
+                                            <!-- create new record dialog -->
+                                            <p:dialog id="new_record_Dialog" header="Add New Journal Information" widgetVar="addNewDialog" resizable="false"  
+                                                      width="600" modal="true" position='500, 200' style="z-index: 11000 !important;">  
+                                                <h:panelGroup id="new-record-panel">
+                                                    <p:messages />
+                                                    <br />
+                                                    <div class="row" style="margin: 0 20px;">                                                      
+
+
+                                                        <b>Journal name:<span class="required-field">*</span></b><br />
+                                                        <h:inputText id="journal_name" styleClass="form-control input-sm"
+                                                                     value="#{journalMBean.recordDto.journalName}"                                                                    
+                                                                     style="background-color: transparent !important; border: 40px; width: 500px;"/>  
+                                                        <br /><br />
+
+                                                        <b>Journal URL:<span class="required-field">*</span></b><br />
+                                                        <h:inputText id="journal_url" styleClass="form-control input-sm"
+                                                                     value="#{journalMBean.recordDto.journalUrl}"                                                                    
+                                                                     style="background-color: transparent !important; border: 40px; width: 500px;"/> 
+                                                        <br /><br />
+
+                                                        <p:commandLink styleClass="btn btn-primary"
+                                                                       style="color: #fff;margin-bottom: 70px; background: #192F59; border-radius: 15px;" 
+                                                                       actionListener="#{journalMBean.createAction}"
+                                                                       process="new-record-panel" update="new-record-panel,item-listing-panel,gowl-msg">
+                                                            <i class="fa fa-send"></i> Submit
+                                                        </p:commandLink>                   
+
+                                                    </div>
+                                                </h:panelGroup>
+                                            </p:dialog>
+
+                                            <!-- end create new record dialog -->
+
+
+                                            <!-- edit new record dialog -->
+                                            <p:dialog id="edit_record_Dialog" header="Edit Journal Information" widgetVar="editDialog" resizable="false"  
+                                                      width="600" modal="true" position='200, 200'>  
+                                                <h:panelGroup id="edit-record-Panel">
+                                                    <p:messages />
+                                                    <br />
+                                                    <div class="row" style="margin: 0 20px;">                                                      
+
+
+                                                        <b>Journal name:<span class="required-field">*</span></b><br />
+                                                        <h:inputText id="edit_journal_name" styleClass="form-control input-sm"
+                                                                     value="#{journalMBean.editRecordDto.journalName}"                                                                    
+                                                                     style="background-color: transparent !important; border: 40px; width: 500px;"/>                                                    
+
+
+                                                        <br />
+
+                                                        <b>Journal URL:<span class="required-field">*</span></b><br />
+                                                        <h:inputText id="edit_journal_url" styleClass="form-control input-sm"
+                                                                     value="#{journalMBean.editRecordDto.journalUrl}"                                                                    
+                                                                     style="background-color: transparent !important; border: 40px; width: 500px;"/>                                                    
+
+
+                                                        <br />
+
+                                                        <b>Status:<span class="required-field">*</span></b><br />
+                                                        <h:selectOneMenu value="#{journalMBean.editRecordDto.recordStatus}" style="width: 500px;">
+                                                            <f:selectItem itemLabel="Any" itemValue="Any" />
+                                                            <f:selectItem itemLabel="ACTIVE" itemValue="ACTIVE" />
+                                                            <f:selectItem itemLabel="INACTIVE" itemValue="INACTIVE" />
+                                                        </h:selectOneMenu>                                               
+
+
+                                                        <br /><br />
+
+                                                        <p:commandLink styleClass="btn btn-primary"
+                                                                       style="color: #fff;margin-bottom: 70px; background: #192F59; border-radius: 15px;" 
+                                                                       actionListener="#{journalMBean.updateAction}"
+                                                                       process="edit-record-Panel" update="edit-record-Panel, item-listing-panel,gowl-msg">
+                                                            <i class="fa fa-send"></i> Submit Update
+                                                        </p:commandLink>     
+
+                                                        <br />
+
+
+
+                                                    </div>
+                                                </h:panelGroup>
+                                            </p:dialog>
+
+                                            <!-- end create new record dialog -->
+
+                                            <!-- approve journal record dialog -->
+                                            <p:dialog id="approve_record_Dialog" header="Approve Journal Information" widgetVar="approveDialog" resizable="false"  
+                                                      width="600" modal="true" position='200, 200'>  
+                                                <h:panelGroup id="approve-record-Panel">
+                                                    <p:messages />
+                                                    <br />
+                                                    <div class="row" style="margin: 0 20px;">                                                      
+
+
+                                                        <b>Journal name:<span class="required-field">*</span></b><br />
+                                                        <h:inputText id="approve_journal_name" styleClass="form-control input-sm"
+                                                                     value="#{journalMBean.approvedRecordDto.journalName}" readonly="true"                                                                    
+                                                                     style="background-color: transparent !important; border: 40px; width: 500px;"/>                                                    
+
+
+                                                        <br />
+
+                                                        <b>Journal URL:<span class="required-field">*</span></b><br />
+                                                        <h:inputText id="approve_journal_url" styleClass="form-control input-sm"
+                                                                     value="#{journalMBean.approvedRecordDto.journalUrl}" readonly="true"                                                               
+                                                                     style="background-color: transparent !important; border: 40px; width: 500px;"/>                                                    
+
+
+                                                        <br />
+                                                        <br /><br />
+
+                                                        <p:commandLink styleClass="btn btn-primary"
+                                                                       style="color: #fff;margin-bottom: 70px; background: #192F59; border-radius: 15px;" 
+                                                                       actionListener="#{journalMBean.approveJournalAction}"
+                                                                       process="approve-record-Panel" update="approve-record-Panel, item-listing-panel,gowl-msg">
+                                                            <i class="fa fa-send"></i> Approve Journal Source
+                                                        </p:commandLink>     
+
+                                                        <br />
+
+
+
+                                                    </div>
+                                                </h:panelGroup>
+                                            </p:dialog>
+
+                                            <!-- end create new record dialog -->
+
+
+
+
+                                        </h:form>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="#{request.contextPath}/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="#{request.contextPath}/vendor/jquery.nicescroll-v3.6.8/jquery.nicescroll.min.js"></script>
+<!--        <script src="#{request.contextPath}/vendor/select2-4.0.3/js/select2.min.js"></script>-->
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#profile-leftnav").niceScroll({cursorcolor: "#009E54"});
+
+                $('select').select2();
+            });
+
+            function openFancyBoxImage(url, title) {
+                $.fancybox.open({
+                    autoSize: false,
+                    width: '80%',
+                    height: '90%',
+                    href: '' + url + '',
+                    title: title,
+                    padding: 2,
+                    transitionIn: 'elastic',
+                    transitionOut: 'elastic',
+                    helpers: {
+                        overlay: {
+                            closeClick: false
+                        }
+                    }
+                });
+                return false;
+            }
+
+            function openFancyBoxPdf(url, title) {
+                $.fancybox.open({
+                    autoSize: false,
+                    width: 900,
+                    height: 650,
+                    href: '' + url + '',
+                    title: title,
+                    type: 'iframe',
+                    padding: 2,
+                    transitionIn: 'elastic',
+                    transitionOut: 'elastic',
+                    helpers: {
+                        overlay: {
+                            closeClick: false
+                        }
+                    }
+                });
+                return false;
+            }
+
+            function openFancyBoxIframe(url, cWidth, cHeight) {
+                $.fancybox.open({
+                    autoSize: false,
+                    width: cWidth,
+                    height: cHeight,
+                    href: '' + url + '',
+                    type: 'iframe',
+                    padding: 2,
+                    transitionIn: 'elastic',
+                    transitionOut: 'elastic',
+                    helpers: {
+                        overlay: {
+                            closeClick: false
+                        }
+                    },
+                    afterClose: function () { // USE THIS IT IS YOUR ANSWER THE KEY WORD IS "afterClose"
+                        parent.location.reload(true);
+                    }
+                });
+                return false;
+            }
+        </script>
+
+    </ui:define>
+
+</ui:composition>

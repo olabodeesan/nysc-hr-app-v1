@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../templates/ui-template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="additional_css">
+        <link href="#{request.contextPath}/assets/css/dashboard.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/assets/css/custom.css" rel="stylesheet" type="text/css" />
+
+        <style type="text/css">
+            .contentpanel{
+                background: #fff;
+            }
+        </style>
+    </ui:define>
+
+
+    <ui:define name="page_content">
+
+        <h:form prependId="false" id="frmMain">
+            <h:panelGroup id="mainPanel">
+                <p:growl id="generalMsg" />
+
+
+
+
+
+              
+
+                <div style="display: block; height: 15px;"></div>
+                <!-- Row -->
+                <div class="row g-0">
+                    <div class="col-lg-9 col-xl-9 pe-lg-2 mb-3">
+                        <div class="card h-md-100">
+                            <div class="card-header pb-0">
+                                <div class="pull-left">
+                                    <h6 class="mb-0 mt-2 d-flex align-items-center">
+                                        <span style="font-weight: 600; font-size: 25pt;">
+                                            Welcome #{sessionScope['CURRENT_USER'].fullName}!
+                                        </span>
+                                    </h6>
+                                </div>
+                                <div class="pull-right">
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-xl-3 ps-lg-2 mb-3" style="background-image:url(../../../nysc-hr-app-v1/assets/img/icons/spot-illustrations/corner-2.png);">
+
+                        <div class="card h-100">
+
+                            <div class="card-header d-flex flex-between-center bg-body-tertiary py-2">
+                                <h6 class="mb-0">Personal Details</h6>
+
+
+                                <button class="py-1 fs--1 font-sans-serif btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    <i class="far fa-edit"></i> Update
+                                </button>
+
+
+                            </div>
+
+
+                            <div class="card-body pb-0" style="font-size: 10pt !important; color: #000 !important;">
+                                <h6 style="color: #5B0202;">IPPIS Number*</h6>
+                                <p style="font-weight: 700;">#{dashBoardMBean.employeeDTO.ippisNumber}</p>
+
+                                <h6 style="color: #5B0202;">Tax Number *</h6>
+                                <p style="font-weight: 700;">#{dashBoardMBean.employeeDTO.tinNumber}</p>
+                                <div style="display: none; height: 1px; background: #002a18;" class="shadow-sm"></div>
+                                <h6 style="color: #5B0202;">NHIS Number *</h6>
+                                <p style="font-weight: 700;">#{dashBoardMBean.employeeDTO.nhisNumber}</p>
+                                <h6 style="color: #5B0202;">National Housing Fund (NHF) Number *</h6>
+                                <p style="font-weight: 700;">#{dashBoardMBean.employeeDTO.nhfNumber}</p>
+
+                                <h6 style="color: #5B0202;">Pension Number*</h6>
+                                <p>#{dashBoardMBean.employeeDTO.pfaDescription} | <b>#{dashBoardMBean.employeeDTO.pfaNumber}</b></p>
+
+                                <h6 style="color: #5B0202;">Salary Account Number *</h6>
+                                <p>#{dashBoardMBean.employeeDTO.salaryBankDescription} | <b>#{dashBoardMBean.employeeDTO.salaryBankAccountNo}</b></p>
+
+                                <h6 style="color: #5B0202;">Operation Account Number *</h6>
+                                <p>#{dashBoardMBean.employeeDTO.operationBankDescription} | <b>#{dashBoardMBean.employeeDTO.operationBankAccountNo}</b></p>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+
+                <!-- Modal Dialog -->
+
+                <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <h:panelGroup id="updatePaymentDetailPanel">
+                        <div class="modal-dialog modal-lg mt-6" role="document">
+
+                            <div class="modal-content border-0">
+                                <div class="modal-body p-0">
+                                    <div class="rounded-top-3 bg-body-tertiary py-3 px-10 ps-4 pe-6 d-flex flex-between-center">                             
+
+                                        <h4 class="mb-1" id="staticBackdropLabel"> 
+                                            <i class="far fa-edit" style="color: #850202;"></i> Update Payment Details 
+                                            <br />
+                                            <p class="fs--2 mb-0 mt-2">Updated by 
+                                                <a class="link-600 fw-semi-bold" href="#!" style="color: #00894F !important;">#{dashBoardMBean.employeeDTO.surname} &nbsp; #{dashBoardMBean.employeeDTO.otherNames}</a>
+                                            </p>  
+                                        </h4>
+                                        <button class="btn-close btn btn-sm btn-circle btn-danger transition-base  z-1" data-bs-dismiss="modal" aria-label="Close">
+
+                                        </button>
+                                    </div>
+
+                                    <div class="p-4">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="d-flex">
+                                                    <span class="fa-stack ms-n1 me-3">
+                                                        <i class="fas fa-circle fa-stack-2x text-200"></i>
+                                                        <i class="fa-inverse fa-stack-1x text-primary fas fa-tag" data-fa-transform="shrink-2"></i>
+                                                    </span>
+
+                                                    <div class="flex-1">
+                                                        <h5 class="mb-2 fs-0" style="color: #c433c0;">IPPIS | TIN | NHIS | NHF -::- Details </h5>
+                                                        <div class="d-flex">
+                                                            <span class="me-1 py-2  app-modal-label app-width-100 wine-color">IPPIS No *:</span>
+                                                            <span class="me-1 py-2 input-group mb-2">
+                                                                <h:inputText id="txt_ippis_no" class="form-control" value="#{dashBoardMBean.employeeDTO.ippisNumber}" />
+                                                            </span>
+                                                        </div>
+
+
+                                                        <div class="d-flex">
+                                                            <span class="me-1 py-2 app-modal-label app-width-100 wine-color">TIN No :</span>
+                                                            <span class="me-1 py-2 input-group mb-2">
+                                                                <h:inputText id="txt_tin_no" class="form-control" value="#{dashBoardMBean.employeeDTO.tinNumber}" />
+                                                            </span>
+                                                        </div>
+
+
+                                                        <div class="d-flex">
+                                                            <span class="me-1 py-2 app-modal-label app-width-100 wine-color">NHF No  :</span>
+                                                            <span class="me-1 py-2 input-group mb-2">
+                                                                <h:inputText id="txt_nhf_no" class="form-control" value="#{dashBoardMBean.employeeDTO.nhfNumber}" />
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="d-flex">
+                                                            <span class="me-1 py-2 app-modal-label app-width-100 wine-color">NHIS No  :</span>
+                                                            <span class="me-1 py-2 input-group mb-2">
+                                                                <h:inputText id="txt_nhis_no" class="form-control" value="#{dashBoardMBean.employeeDTO.nhisNumber}" />
+                                                            </span>
+                                                        </div>
+                                                        <hr class="my-4" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex">
+                                                    <span class="fa-stack ms-n1 me-3">
+                                                        <i class="fas fa-circle fa-stack-2x text-200"></i>
+                                                        <i class="fa-inverse fa-stack-1x text-primary fas fa-align-left" data-fa-transform="shrink-2">                                                    
+                                                        </i>
+                                                    </span>
+                                                    <div class="flex-1">
+                                                        <h5 class="mb-2 fs-0" style="color: #c433c0;">Pension | Salary | Operation Account -::- Details </h5>
+                                                        <p class="text-break fs--1" style="display: none;">The illustration must match to the contrast of the theme. The illustraion must described the concept of the design. To know more about the theme visit the page. </p>
+
+
+                                                        <!-- Insert table -->
+                                                        <div class="table-responsive scrollbar">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col"></th>
+                                                                        <th scope="col">Banker/PFA</th>
+                                                                        <th scope="col">Account No</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="color: #850202; font-size: 10pt; font-weight: 600; text-align: right;">Pension No: * </td>
+                                                                        <td>
+                                                                            <h:selectOneMenu id="dd_pfa" value="#{dashBoardMBean.employeeDTO.pfaId}"
+                                                                                             styleClass="form-control" style="width: 250px;" >
+                                                                                <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                                <f:selectItems value="#{appCodesMBean.pensionFundAdministrator}" />
+                                                                            </h:selectOneMenu>
+                                                                        </td>
+                                                                        <td>
+                                                                            <h:inputText id="txt_pfa_no" class="form-control" value="#{dashBoardMBean.employeeDTO.pfaNumber}" />
+                                                                        </td>   
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td style="color: #850202; font-size: 10pt; font-weight: 600; text-align: right;">Salary Acc. No: * </td>
+                                                                        <td>
+                                                                            <h:selectOneMenu id="dd_salary_account" value="#{dashBoardMBean.employeeDTO.salaryBankId}"
+                                                                                             styleClass="form-control" style="width: 250px;" >
+                                                                                <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                                <f:selectItems value="#{appCodesMBean.bankers}" />
+                                                                            </h:selectOneMenu>
+                                                                        </td>
+                                                                        <td>
+                                                                            <h:inputText id="txt_salary_acc_no" class="form-control" value="#{dashBoardMBean.employeeDTO.salaryBankAccountNo}" />
+                                                                        </td>   
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td style="color: #850202; font-size: 10pt; font-weight: 600; text-align: right;">Operation Acc.: * </td>
+                                                                        <td>
+                                                                            <h:selectOneMenu id="dd_operation_account" value="#{dashBoardMBean.employeeDTO.operationBankId}"
+                                                                                             styleClass="form-control" style="width: 250px;" >
+                                                                                <f:selectItem itemLabel="Choose" itemValue="" />
+                                                                                <f:selectItems value="#{appCodesMBean.bankers}" />
+                                                                            </h:selectOneMenu>
+                                                                        </td>
+                                                                        <td>
+                                                                            <h:inputText id="txt_operation_acc_no" class="form-control" value="#{dashBoardMBean.employeeDTO.operationBankAccountNo}" />
+                                                                        </td>   
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <!-- End Insert Table -->
+
+
+                                                        <div class="row g-3">
+                                                            <p:commandLink class="py-2 fs--1 font-sans-serif btn btn-outline-success"                                                                            
+                                                                           actionListener="#{dashBoardMBean.updateEmployeeAccountDetails(event)}"
+                                                                           process="updatePaymentDetailPanel" update="mainPanel, updatePaymentDetailPanel,generalMsg">
+                                                                <i class="fas fa-paper-plane"></i> Update Details
+
+
+                                                            </p:commandLink>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                </div>
+
+                <!-- End Modal Dialog -->
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

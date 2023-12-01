@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- ===============================================-->
+        <!--    Document Title-->
+        <!-- ===============================================-->
+        <title>NYSC-HRM | Dashboard &amp; Web App Template</title>
+        <!-- ===============================================-->
+        <!--    Favicons-->
+        <!-- ===============================================-->
+
+        <link rel="icon" type="image/png" sizes="32x32" href="#{request.contextPath}/assets/img/favicons/nysclogo_32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="#{request.contextPath}/assets/img/favicons/nysclogo_16x16.png" />
+
+        <meta name="theme-color" content="#ffffff" />
+        <script src="#{request.contextPath}/assets/js/config.js"></script>
+        <script src="#{request.contextPath}/vendors/simplebar/simplebar.min.js"></script>
+        <!-- ===============================================-->
+        <!--    Stylesheets-->
+        <!-- ===============================================-->
+        <link href="#{request.contextPath}/vendors/leaflet/leaflet.css" rel="stylesheet" />
+        <link href="#{request.contextPath}/vendors/leaflet.markercluster/MarkerCluster.css" rel="stylesheet" />
+        <link href="#{request.contextPath}/vendors/leaflet.markercluster/MarkerCluster.Default.css" rel="stylesheet" />
+        <link href="#{request.contextPath}/vendors/flatpickr/flatpickr.min.css" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.gstatic.com/" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet" />
+        <link href="#{request.contextPath}/vendors/simplebar/simplebar.min.css" rel="stylesheet" />
+        <link href="#{request.contextPath}/assets/css/theme-rtl.min.css" rel="stylesheet" id="style-rtl" />
+        <link href="#{request.contextPath}/assets/css/theme.min.css" rel="stylesheet" id="style-default" />
+        <link href="#{request.contextPath}/assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl" />
+        <link href="#{request.contextPath}/assets/css/user.min.css" rel="stylesheet" id="user-style-default" />
+
+        <link href="#{request.contextPath}/vendors/fontawesom-6.4.2-web/css/fontawesome.css" rel="stylesheet" />
+        <link href="#{request.contextPath}/vendors/fontawesom-6.4.2-web/css/brands.css" rel="stylesheet" />
+        <link href="#{request.contextPath}/vendors/fontawesom-6.4.2-web/css/solid.css" rel="stylesheet" />
+        <link href="#{request.contextPath}/vendor/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    </h:head>
+    <h:body style="background: #fff !important;">
+        <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../../../nysc-hr-app-v1/assets/img/icons/spot-illustrations/corner-4.png);"></div>
+        <main class="main" id="top">
+            <div class="container" data-layout="container">
+                <div class="row flex-center min-vh-100 py-6">
+                    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                        <a class="d-flex flex-center mb-4" href="../../../index.html" style="text-decoration: none;">
+                            <img class="me-2" src="#{request.contextPath}/assets/img/nysclogo.png" alt="" width="58" />
+                            <br />
+                            <span class="font-sans-serif text-primary fw-bolder fs-5 d-inline-block" style="color: #4C8551 !important; font-size: 14pt !important; text-align: center;">
+                                NYSC<br />
+                                Human Resources Mgt App
+                            </span>
+                        </a>
+                        <div class="card">
+                            <div class="card-body p-4 p-sm-5">
+                                <div class="row flex-between-center mb-2">
+                                    <div class="col-auto">
+                                        <h5 style="color: #A90C24 !important;"> Staff Log in</h5>
+                                    </div>
+                                    <div class="col-auto fs--1 text-600" style="display: none;">
+                                        <span class="mb-0 undefined">or</span> 
+                                        <span>
+                                            <a href="register.html">
+                                                Create an account
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+
+
+                                <h:form prependId="false" style="margin: 0; padding: 0;">
+                                    <h:panelGroup id="loginPanel" layout="block" >
+                                        <div class="mb-3">
+                                            <span class="font-sans-serif" style="font-size: 14px !important;">
+
+                                                Username
+                                            </span>
+                                            <br />
+                                            <input class="form-control" type="email" placeholder="Email address" style="display: none;" />
+
+                                            <h:inputText id="txt_username" class="form-control" value="#{loginMBean.username}" />
+                                            <p:watermark for="txt_username" value="Email address" />
+                                        </div>
+
+                                        <div style="height: 15px; display: block;"></div>
+
+                                        <div class="mb-3">
+                                            <span class="font-sans-serif" style="font-size: 14px !important;">
+                                                Password
+                                            </span>
+                                            <br />
+                                            <h:inputSecret id="txt_pword" class="form-control" value="#{loginMBean.password}" />
+                                            <p:watermark for="txt_pword" value="Password" />
+                                            <input class="form-control" type="password" placeholder="Password" style="display: none;" />
+                                        </div>
+
+                                        <div class="row flex-between-center">
+                                            <div class="col-auto">
+                                                <div class="form-check mb-0" style="display: none;">
+                                                    <input class="form-check-input" type="checkbox" id="basic-checkbox" checked="checked" />
+                                                    <label class="form-check-label mb-0" for="basic-checkbox">Remember me</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3">
+                                            <p:commandLink class="btn btn-primary d-block w-100 mt-3" 
+                                                           style="background: #4C8551 !important; border: thin #4C8551; height: 50px !important; padding: 10px 0; "
+                                                           actionListener="#{loginMBean.loginAction(event)}"
+                                                           process="loginPanel" update="loginPanel">
+                                                <i class="fas fa-paper-plane"></i> Log in
+
+
+                                            </p:commandLink>
+
+                                            <span class=" fs-3 bi-people"></span>
+                                        </div>
+
+                                        <div class="col-auto"><a class="fs--1 font-sans-serif" href="forgot-password.html" style="color: #B71027 !important; font-weight: 500;">Forgot Password?</a></div>
+
+                                    </h:panelGroup>
+                                </h:form>
+                                <div class="position-relative mt-4" style="display: none;">
+                                    <hr />
+                                    <div class="divider-content-center">or log in with</div>
+                                </div>
+                                <div class="row g-2 mt-2" style="display: none;">
+                                    <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><svg class="svg-inline--fa fa-google-plus-g fa-w-20 me-2" data-fa-transform="grow-8" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google-plus-g" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg="" style="transform-origin: 0.625em 0.5em;"><g transform="translate(320 256)"><g transform="translate(0, 0)  scale(1.5, 1.5)  rotate(0 0 0)"><path fill="currentColor" d="M386.061 228.496c1.834 9.692 3.143 19.384 3.143 31.956C389.204 370.205 315.599 448 204.8 448c-106.084 0-192-85.915-192-192s85.916-192 192-192c51.864 0 95.083 18.859 128.611 50.292l-52.126 50.03c-14.145-13.621-39.028-29.599-76.485-29.599-65.484 0-118.92 54.221-118.92 121.277 0 67.056 53.436 121.277 118.92 121.277 75.961 0 104.513-54.745 108.965-82.773H204.8v-66.009h181.261zm185.406 6.437V179.2h-56.001v55.733h-55.733v56.001h55.733v55.733h56.001v-55.733H627.2v-56.001h-55.733z" transform="translate(-320 -256)"></path></g></g></svg><!-- <span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> Font Awesome fontawesome.com --> google</a></div>
+                                    <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><svg class="svg-inline--fa fa-facebook-square fa-w-14 me-2" data-fa-transform="grow-8" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="" style="transform-origin: 0.4375em 0.5em;"><g transform="translate(224 256)"><g transform="translate(0, 0)  scale(1.5, 1.5)  rotate(0 0 0)"><path fill="currentColor" d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z" transform="translate(-224 -256)"></path></g></g></svg><!-- <span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> Font Awesome fontawesome.com --> facebook</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"
+                              onerror="PF('statusDialog').hide();PF('errorDialog').show();"/>
+
+                <p:dialog modal="true" widgetVar="statusDialog" header="Status" id="loading-div"
+                          draggable="false" closable="false" styleClass="headlessDialog" width="130" resizable="false">
+                    <div class="innerstatus">
+                        <h:graphicImage value="/assets/img/239.GIF" /> 
+                        ...LOADING...
+                    </div>
+                </p:dialog>
+
+                <p:dialog modal="true" widgetVar="errorDialog" header="Status" id="time-out-div"
+                          draggable="false" closable="false" styleClass="headlessDialog" width="200" resizable="false">
+                    <div class="innererror">
+                        Ooops!, Your request timed out. <br/>Try It Again. Thanks!.<br/>
+                        <a href="#" onclick="PF('errorDialog').hide();">
+                            <span class="errorclose">Close</span>
+                        </a>
+                    </div>
+                </p:dialog>
+
+            </div>
+        </main>
+        <!-- ===============================================-->
+        <!--    End of Main Content-->
+        <!-- ===============================================-->
+        <!-- ===============================================-->
+        <!--    JavaScripts-->
+        <!-- ===============================================-->
+        <script src="#{request.contextPath}/vendors/popper/popper.min.js"></script>
+        <script src="#{request.contextPath}/vendors/bootstrap/bootstrap.min.js"></script>
+        <script src="#{request.contextPath}/vendors/anchorjs/anchor.min.js"></script>
+        <script src="#{request.contextPath}/vendors/is/is.min.js"></script>
+        <script src="#{request.contextPath}/vendors/chart/chart.min.js"></script>
+        <script src="#{request.contextPath}/vendors/leaflet/leaflet.js"></script>
+        <script src="#{request.contextPath}/vendors/leaflet.markercluster/leaflet.markercluster.js"></script>
+        <script src="#{request.contextPath}/vendors/leaflet.tilelayer.colorfilter/leaflet-tilelayer-colorfilter.min.js"></script>
+        <script src="#{request.contextPath}/vendors/countup/countUp.umd.js"></script>
+        <script src="#{request.contextPath}/vendors/echarts/echarts.min.js"></script>
+        <script src="#{request.contextPath}/assets/data/world.js"></script>
+        <script src="#{request.contextPath}/vendors/dayjs/dayjs.min.js"></script>
+        <script src="#{request.contextPath}/assets/js/flatpickr.js"></script>
+        <script src="#{request.contextPath}/vendors/fontawesome/all.min.js"></script>
+        <script src="#{request.contextPath}/vendors/lodash/lodash.min.js"></script>
+        <script src="#{request.contextPath}/assets/js/polyfill.min58be.js?features=window.scroll"></script>
+        <script src="#{request.contextPath}/vendors/list.js/list.min.js"></script>
+        <script src="#{request.contextPath}/assets/js/theme.js"></script>
+    </h:body>
+</html>

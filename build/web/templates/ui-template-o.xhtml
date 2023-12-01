@@ -1,0 +1,420 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <f:event type="javax.faces.event.PreRenderViewEvent"
+             listener="#{templatesMBean.preRenderView(cse)}" />
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <title>NYSC | Personnel Management System</title>
+        <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+        <link href="#{request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/animate.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/admin.css" rel="stylesheet" type="text/css" />
+
+        <link href="#{request.contextPath}/css/pf-fix.css" rel="stylesheet" type="text/css" />
+
+        <link href="#{request.contextPath}/css/custom.css" rel="stylesheet" type="text/css" />
+
+        <ui:insert name="head" />
+
+        <style>
+
+        </style>
+
+    </h:head>
+
+    <h:body styleClass="dark_theme  fixed_header left_nav_fixed" style="background: rgb(255, 255, 255);">
+
+        <div class="wrapper">
+            <!--\\\\\\\ wrapper Start \\\\\\-->
+            <div class="header_bar">
+                <!--\\\\\\\ header Start \\\\\\-->
+                <div class="brand">
+                    <!--\\\\\\\ brand Start \\\\\\-->
+                    <div class="logo" style="display:block"><span class="theme_color logo">NYSC</span> HRMS</div>
+                    <div class="small_logo" style="display:none">
+                        <img src="#{request.contextPath}/images/s-logo.png" width="50" height="47" alt="s-logo" /> 
+                        <img src="#{request.contextPath}/images/r-logo.png" width="122" height="20" alt="r-logo" />
+                    </div>
+                </div>
+                <!--\\\\\\\ brand end \\\\\\-->
+                <div class="header_top_bar">
+                    <!--\\\\\\\ header top bar start \\\\\\-->
+                    <a href="javascript:void(0);" class="menutoggle"> <i class="fa fa-bars"></i> </a>
+
+                    <div class="top_right_bar">
+                        <div class="top_right">
+                            <div class="top_right_menu">
+                                <ul>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" data-toggle="dropdown"> &nbsp;&nbsp;&nbsp;</a>
+
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" data-toggle="dropdown"> &nbsp;&nbsp;&nbsp;</a>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="user_admin dropdown">
+                            <h:form prependId="false">
+                                <a href="javascript:void(0);" data-toggle="dropdown">
+                                    <img src="#{request.contextPath}/images/bluemanm.png" class="user-avartar" />
+                                    <span class="user_adminname">#{sessionScope['CURRENT_USER'].username}</span> <b class="caret"></b> 
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <div class="top_pointer"></div>
+                                    <li> <a href="profile.html"><i class="fa fa-user"></i> Profile</a> </li>
+                                    <li> <a href="help.html"><i class="fa fa-question-circle"></i> Help</a> </li>
+                                    <li> <a href="settings.html"><i class="fa fa-cog"></i> Setting </a></li>
+                                    <li> 
+                                        <h:commandLink actionListener="#{templatesMBean.logoutAction}">
+                                            <i class="fa fa-power-off"></i> Logout
+                                        </h:commandLink>
+                                    </li>
+                                </ul>
+                            </h:form>
+                        </div>
+
+                    </div>
+                </div>
+                <!--\\\\\\\ header top bar end \\\\\\-->
+            </div>
+            <!--\\\\\\\ header end \\\\\\-->
+            <div class="inner">
+                <!--\\\\\\\ inner start \\\\\\-->
+                <div class="left_nav">
+                    <!--\\\\\\\left_nav start \\\\\\-->
+                    <div class="search_bar">
+                        NAVIGATION
+                    </div>
+                    <div class="left_nav_slidebar">
+                        <ul>
+                            <li class="#{param['nav'] eq 'dash' ? 'left_nav_active theme_border' : ''}">
+                                <a href="#{request.contextPath}/common/dashboard.jsf?nav=dash">
+                                    <i class="fa fa-home"></i> Dashboard <span class="left_nav_pointer"></span> 
+                                </a>                                
+                            </li>
+                            <li class="#{param['nav'] eq 'personnel' ? 'left_nav_active theme_border' : ''}">
+                                <a href="javascript:void(0);"> <i class="fa fa-users"></i> Personnel Records <span class="plus"><i class="fa fa-plus"></i></span></a>
+                                <ul class="#{param['nav'] eq 'personnel' ? 'opened' : ''}" 
+                                    style="display:#{param['nav'] eq 'personnel' ? 'block' : 'none'};">                                    
+                                    <li> 
+                                        <a href="#{request.contextPath}/employees/active-personnel-listing.jsf?nav=personnel"> 
+                                            <b>List Of Active Personnel</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/employees/disengaged-personnel-listing.jsf?nav=personnel"> 
+                                            <b>List Of Disengaged Personnel</b> 
+                                        </a> 
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="#{param['nav'] eq 'ap_and_rec' ? 'left_nav_active theme_border' : ''}">
+                                <a href="javascript:void(0);"> <i class="fa fa-user"></i> Appointment &amp; Rec. <span class="plus"><i class="fa fa-plus"></i></span></a>
+                                <ul class="#{param['nav'] eq 'ap_and_rec' ? 'opened' : ''}" 
+                                    style="display:#{param['nav'] eq 'ap_and_rec' ? 'block' : 'none'};">                                    
+                                    <li> 
+                                        <a href="#{request.contextPath}/appointment-recruitment/new-personnel.jsf?nav=ap_and_rec&amp;m23asdfg=1"> 
+                                            <b>New Personnel (Fresh)</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/appointment-recruitment/new-personnel.jsf?nav=ap_and_rec&amp;m23asdfg=2"> 
+                                            <b>New Personnel (Transfer)</b> 
+                                        </a> 
+                                    </li>
+                                    <li style="display: none;"> 
+                                        <a href="#{request.contextPath}/appointment-recruitment/disengaged-listing.jsf?nav=ap_and_rec"> 
+                                            <b>List Of Disengaged Personnel</b> 
+                                        </a> 
+                                    </li>
+                                    <li style="display: none;"> 
+                                        <a href="#"> 
+                                            <b>Applicants Data</b> 
+                                        </a> 
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="#{param['nav'] eq 'discipline' ? 'left_nav_active theme_border' : ''}">
+                                <a href="javascript:void(0);"> <i class="fa fa-legal"></i> Discipline <span class="plus"><i class="fa fa-plus"></i></span></a>
+                                <ul class="#{param['nav'] eq 'discipline' ? 'opened' : ''}" 
+                                    style="display:#{param['nav'] eq 'discipline' ? 'block' : 'none'};">                                    
+                                    <li> 
+                                        <a href="#{request.contextPath}/discipline/disciplined-listing.jsf?nav=discipline"> 
+                                            <b>List Of Disciplined Personnel</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/discipline/close-discipline.jsf?nav=discipline"> 
+                                            <b>Close Personnel Discipline</b> 
+                                        </a> 
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="#{param['nav'] eq 'suspension' ? 'left_nav_active theme_border' : ''}">
+                                <a href="javascript:void(0);"> <i class="fa fa-warning"></i> Suspension <span class="plus"><i class="fa fa-plus"></i></span></a>
+                                <ul class="#{param['nav'] eq 'suspension' ? 'opened' : ''}" 
+                                    style="display:#{param['nav'] eq 'suspension' ? 'block' : 'none'};">                                    
+
+                                    <li> 
+                                        <a href="#{request.contextPath}/appointment-recruitment/suspended-listing.jsf?nav=suspension"> 
+                                            <b>List Of Suspended Personnel</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/appointment-recruitment/lift-suspension.jsf?nav=suspension"> 
+                                            <b>Lift Personnel Suspension</b> 
+                                        </a> 
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="#{param['nav'] eq 'registry' ? 'left_nav_active theme_border' : ''}">
+                                <a href="javascript:void(0);"> <i class="fa fa-files-o"></i> Registry <span class="plus"><i class="fa fa-plus"></i></span></a>
+                                <ul class="#{param['nav'] eq 'registry' ? 'opened' : ''}" 
+                                    style="display:#{param['nav'] eq 'registry' ? 'block' : 'none'};">                                    
+                                    <li> 
+                                        <a href="#{request.contextPath}/registry/file-request-listing.jsf?nav=registry"> 
+                                            <b>List Of File Requests</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/registry/annual-leave-roster-listing.jsf?nav=registry"> 
+                                            <b>Annual Leave Roster</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/registry/personnel-annual-leave-roster.jsf?nav=registry"> 
+                                            <b>Personnel Annual Leave Roster</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/registry/personnel-leave-application-listing.jsf?nav=registry"> 
+                                            <b>List Of Leave Applications</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/registry/personnel-leave-application.jsf?nav=registry"> 
+                                            <b>Personnel Leave Application</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/registry/personnel-documents.jsf?nav=registry"> 
+                                            <b>Personnel Documents</b> 
+                                        </a> 
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="#{param['nav'] eq 'training' ? 'left_nav_active theme_border' : ''}">
+                                <a href="javascript:void(0);"> <i class="fa fa-book"></i> Training <span class="plus"><i class="fa fa-plus"></i></span></a>
+                                <ul class="#{param['nav'] eq 'training' ? 'opened' : ''}" 
+                                    style="display:#{param['nav'] eq 'training' ? 'block' : 'none'};">  
+                                    <li> 
+                                        <a href="#{request.contextPath}/training/personnel-training-application-listing.jsf?nav=training"> 
+                                            <b>Listing Of Training Applications</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/training/personnel-training-application.jsf?nav=training"> 
+                                            <b>Personnel Training Application</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/training/training-proposal-listing.jsf?nav=training"> 
+                                            <b>List Of Training Proposals</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/training/new-training-proposal.jsf?nav=training"> 
+                                            <b>New Training Proposal</b> 
+                                        </a> 
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="#{param['nav'] eq 'posting' ? 'left_nav_active theme_border' : ''}">
+                                <a href="javascript:void(0);"> <i class="fa fa-suitcase"></i> Posting And Transfer <span class="plus"><i class="fa fa-plus"></i></span></a>
+                                <ul class="#{param['nav'] eq 'posting' ? 'opened' : ''}" 
+                                    style="display:#{param['nav'] eq 'posting' ? 'block' : 'none'};">                                    
+
+
+                                    <li> 
+                                        <a href="#{request.contextPath}/posting/posting-listing.jsf?nav=posting"> 
+                                            <b>List Of Personnel Posting</b> 
+                                        </a> 
+                                    </li> 
+                                </ul>
+                            </li>
+
+                            <li class="#{param['nav'] eq 'welfare' ? 'left_nav_active theme_border' : ''}">
+                                <a href="javascript:void(0);"> <i class="fa fa-shield"></i> Staff Welfare <span class="plus"><i class="fa fa-plus"></i></span></a>
+                                <ul class="#{param['nav'] eq 'welfare' ? 'opened' : ''}" 
+                                    style="display:#{param['nav'] eq 'welfare' ? 'block' : 'none'};">                                    
+                                    <li> 
+                                        <a href="#{request.contextPath}/welfare/newly-transfered-listing.jsf?nav=welfare"> 
+                                            <b>List Of Newly Posted Personnel</b> 
+                                        </a> 
+                                    </li>
+
+                                    <li> 
+                                        <a href="#{request.contextPath}/welfare/retiring-staff-listing.jsf?nav=welfare"> 
+                                            <b>List Of Retiring Personnel</b> 
+                                        </a> 
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="#{param['nav'] eq 'promotion' ? 'left_nav_active theme_border' : ''}">
+                                <a href="javascript:void(0);"> <i class="fa fa-arrow-up"></i> Promotion <span class="plus"><i class="fa fa-plus"></i></span></a>
+                                <ul class="#{param['nav'] eq 'promotion' ? 'opened' : ''}" 
+                                    style="display:#{param['nav'] eq 'promotion' ? 'block' : 'none'};">                                    
+                                    <li> 
+                                        <a href="#{request.contextPath}/promotion/promotion-exercise-listing.jsf?nav=promotion"> 
+                                            <b>Promotion Exercise</b> 
+                                        </a> 
+                                    </li>
+                                    <li style="display: none;"> 
+                                        <a href="#"> 
+                                            <b>Promotion Proposal</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/promotion/conversion-listing.jsf?nav=promotion"> 
+                                            <b>Conversion</b> 
+                                        </a> 
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="#{param['nav'] eq 'setup' ? 'left_nav_active theme_border' : ''}">
+                                <a href="javascript:void(0);"> <i class="fa fa-cogs"></i> Setup <span class="plus"><i class="fa fa-plus"></i></span></a>
+                                <ul class="#{param['nav'] eq 'setup' ? 'opened' : ''}" 
+                                    style="display:#{param['nav'] eq 'setup' ? 'block' : 'none'};">
+
+                                    <li> 
+                                        <a href="#{request.contextPath}/setup/acad-qualifications.jsf?nav=setup"> 
+                                            <b>Acad. Qualifications</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/setup/position-appointments.jsf?nav=setup"> 
+                                            <b>Appointment Types</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/setup/cadre.jsf?nav=setup"> 
+                                            <b>Cadre</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/setup/countries.jsf?nav=setup"> 
+                                            <b>Country</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#{request.contextPath}/setup/departments.jsf?nav=setup"> 
+                                            <b>Departments</b> 
+                                        </a> 
+                                    </li>
+
+                                    <li> 
+                                        <a href="#?nav=setup"> 
+                                            <b>Rank</b> 
+                                        </a> 
+                                    </li>                                    
+                                    <li> 
+                                        <a href="#?nav=setup"> 
+                                            <b>Relationship</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#?nav=setup"> 
+                                            <b>States</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#?nav=setup"> 
+                                            <b>LGA</b> 
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#?nav=setup"> 
+                                            <b>Locations</b> 
+                                        </a> 
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="#{param['nav'] eq 'reports' ? 'left_nav_active theme_border' : ''}">
+                                <a href="#{request.contextPath}/reports/reports.jsf?nav=reports">
+                                    <i class="fa fa-list"></i> Reports <span class=""></span> 
+                                </a>                                
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--\\\\\\\left_nav end \\\\\\-->
+                <div class="contentpanel">
+                    <!--\\\\\\\ contentpanel start\\\\\\-->
+
+                    <div class="pull-left breadcrumb_admin clear_both">
+                        <ui:insert name="page_title" ></ui:insert>
+                        <ui:insert name="bread_crumb" ></ui:insert>
+                    </div>
+
+                    <ui:insert name="content"></ui:insert>                   
+
+                </div>
+                <!--\\\\\\\ content panel end \\\\\\-->
+            </div>
+            <!--\\\\\\\ inner end\\\\\\-->
+        </div>
+        <!--\\\\\\\ wrapper end\\\\\\-->
+
+
+        <script src="#{request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="#{request.contextPath}/js/common-script.js"></script>
+        <script src="#{request.contextPath}/js/jquery.slimscroll.min.js"></script>
+        <script src="#{request.contextPath}/js/jPushMenu.js"></script> 
+
+        <script src="#{request.contextPath}/js/app.js"></script> 
+
+
+
+        <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"
+                      onerror="PF('statusDialog').hide();PF('errorDialog').show();"/>
+
+        <p:dialog modal="true" widgetVar="statusDialog" header="Status"
+                  draggable="false" closable="false" styleClass="headlessDialog" width="120" resizable="false">
+            <div class="innerstatus">
+                <!--                    <h:graphicImage value="/images/3.gif" /> <br/>  -->
+                ...LOADING...
+            </div>
+        </p:dialog>
+
+        <p:dialog modal="true" widgetVar="errorDialog" header="Status"
+                  draggable="false" closable="false" styleClass="headlessDialog" width="200" resizable="false">
+            <div class="innererror">
+                Ooops!, Your request timed out. <br/>Try It Again. Thanks!.<br/>
+                <a href="#" onclick="PF('errorDialog').hide();">
+                    <span class="errorclose">Close</span>
+                </a>
+            </div>
+        </p:dialog>
+
+
+    </h:body>
+
+</html>

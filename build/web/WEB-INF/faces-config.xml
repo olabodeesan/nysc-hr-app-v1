@@ -1,0 +1,389 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    
+    <factory>
+        <exception-handler-factory>
+            app.exceptions.ExceptionHandlerFactory
+        </exception-handler-factory>
+    </factory>
+
+    <lifecycle>
+        <phase-listener id="nocache">
+            app.exceptions.CacheControlPhaseListener
+        </phase-listener>
+    </lifecycle>
+    
+    <managed-bean>
+        <managed-bean-name>demoMBean</managed-bean-name>
+        <managed-bean-class>demo.DemoMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>appCodesMBean</managed-bean-name>
+        <managed-bean-class>app.scope.facades.AppCodesMBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>loginMBean</managed-bean-name>
+        <managed-bean-class>view.security.LoginMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>templatesMBean</managed-bean-name>
+        <managed-bean-class>view.utils.templates.TemplatesMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>cadreMBean</managed-bean-name>
+        <managed-bean-class>view.setup.CadreMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>countryMBean</managed-bean-name>
+        <managed-bean-class>view.setup.CountryMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>departmentMBean</managed-bean-name>
+        <managed-bean-class>view.setup.DepartmentMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>positionAppointmentMBean</managed-bean-name>
+        <managed-bean-class>view.setup.PositionAppointmentMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>qualificationMBean</managed-bean-name>
+        <managed-bean-class>view.setup.QualificationMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>newEmployeeMBean</managed-bean-name>
+        <managed-bean-class>view.appoitnments.recruit.NewEmployeeMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>newEmployeeSuccessMBean</managed-bean-name>
+        <managed-bean-class>view.appoitnments.recruit.NewEmployeeSuccessMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>activePersonnelListMBean</managed-bean-name>
+        <managed-bean-class>view.employees.ActivePersonnelListMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>updateEmployeeBioDataMBean</managed-bean-name>
+        <managed-bean-class>view.employees.UpdateEmployeeBioDataMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>updateEmployeeEmployDataMBean</managed-bean-name>
+        <managed-bean-class>view.employees.UpdateEmployeeEmployDataMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>updateEmployeeApptMBean</managed-bean-name>
+        <managed-bean-class>view.employees.UpdateEmployeeApptMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>updateEmployeeCadreMBean</managed-bean-name>
+        <managed-bean-class>view.employees.UpdateEmployeeCadreMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>updateEmployeePostingMBean</managed-bean-name>
+        <managed-bean-class>view.employees.UpdateEmployeePostingMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>updateEmployeeAcadMBean</managed-bean-name>
+        <managed-bean-class>view.employees.UpdateEmployeeAcadMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>updateEmployeeContactMBean</managed-bean-name>
+        <managed-bean-class>view.employees.UpdateEmployeeContactMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>updateEmployeeDocsMBean</managed-bean-name>
+        <managed-bean-class>view.employees.UpdateEmployeeDocsMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>updateEmployeeNofkinMBean</managed-bean-name>
+        <managed-bean-class>view.employees.UpdateEmployeeNofkinMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>disengagePersonnelMBean</managed-bean-name>
+        <managed-bean-class>view.appoitnments.recruit.DisengagePersonnelMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>suspendPersonnelMBean</managed-bean-name>
+        <managed-bean-class>view.appoitnments.recruit.SuspendPersonnelMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>suspendedListingMBean</managed-bean-name>
+        <managed-bean-class>view.appoitnments.recruit.SuspendedListingMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>disengagedListingMBean</managed-bean-name>
+        <managed-bean-class>view.appoitnments.recruit.DisengagedListingMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>liftSuspensionMBean</managed-bean-name>
+        <managed-bean-class>view.appoitnments.recruit.LiftSuspensionMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>disciplinePersonnelMBean</managed-bean-name>
+        <managed-bean-class>view.discipline.DisciplinePersonnelMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>closeDisciplineMBean</managed-bean-name>
+        <managed-bean-class>view.discipline.CloseDisciplineMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>disciplinedListingMBean</managed-bean-name>
+        <managed-bean-class>view.discipline.DisciplinedListingMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>trainingProposalListingMBean</managed-bean-name>
+        <managed-bean-class>view.training.TrainingProposalListingMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>newTrainingProposalMBean</managed-bean-name>
+        <managed-bean-class>view.training.NewTrainingProposalMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>updateTrainingProposalMBean</managed-bean-name>
+        <managed-bean-class>view.training.UpdateTrainingProposalMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>approveTrainingProposalMBean</managed-bean-name>
+        <managed-bean-class>view.training.ApproveTrainingProposalMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>personnelTrainingApplicationListingMBean</managed-bean-name>
+        <managed-bean-class>view.training.PersonnelTrainingApplicationListingMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>personnelTrainingApplicationMBean</managed-bean-name>
+        <managed-bean-class>view.training.PersonnelTrainingApplicationMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>fileRequestMBean</managed-bean-name>
+        <managed-bean-class>view.registry.FileRequestMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>newFileRequestMBean</managed-bean-name>
+        <managed-bean-class>view.registry.NewFileRequestMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>updateFileRequestMBean</managed-bean-name>
+        <managed-bean-class>view.registry.UpdateFileRequestMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>returnFileRequestMBean</managed-bean-name>
+        <managed-bean-class>view.registry.ReturnFileRequestMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>personnelAnnualLeaveRosterListingMBean</managed-bean-name>
+        <managed-bean-class>view.registry.PersonnelAnnualLeaveRosterListingMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>personnelAnnualLeaveRosterMBean</managed-bean-name>
+        <managed-bean-class>view.registry.PersonnelAnnualLeaveRosterMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>personnelLeaveApplicationListingMBean</managed-bean-name>
+        <managed-bean-class>view.registry.PersonnelLeaveApplicationListingMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>personnelLeaveApplicationMBean</managed-bean-name>
+        <managed-bean-class>view.registry.PersonnelLeaveApplicationMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>personnelRecordsReportMBean</managed-bean-name>
+        <managed-bean-class>view.reports.appointment.recruit.PersonnelRecordsReportMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>disengagedPersonnelListingMBean</managed-bean-name>
+        <managed-bean-class>view.employees.DisengagedPersonnelListingMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>retirementProposalReportMBean</managed-bean-name>
+        <managed-bean-class>view.reports.appointment.recruit.RetirementProposalReportMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>retirementNoticeFormatReportMBean</managed-bean-name>
+        <managed-bean-class>view.reports.appointment.recruit.RetirementNoticeFormatReportMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>presentlyDisciplinedReportMBean</managed-bean-name>
+        <managed-bean-class>view.reports.discipline.suspension.PresentlyDisciplinedReportMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>presentlySuspendedReportMBean</managed-bean-name>
+        <managed-bean-class>view.reports.discipline.suspension.PresentlySuspendedReportMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>personnelLeaveApplReportMBean</managed-bean-name>
+        <managed-bean-class>view.reports.leave.training.PersonnelLeaveApplReportMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>trainingApplReportMBean</managed-bean-name>
+        <managed-bean-class>view.reports.leave.training.TrainingApplReportMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>dashBoardMBean</managed-bean-name>
+        <managed-bean-class>view.common.DashBoardMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>overdueRetirementReportMBean</managed-bean-name>
+        <managed-bean-class>view.reports.appointment.recruit.OverdueRetirementReportMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>personnelDocumentsMBean</managed-bean-name>
+        <managed-bean-class>view.registry.PersonnelDocumentsMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    
+    
+    <managed-bean>
+        <managed-bean-name>postingMBean</managed-bean-name>
+        <managed-bean-class>view.posting.PostingMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>updatePostingMBean</managed-bean-name>
+        <managed-bean-class>view.posting.UpdatePostingMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>newPostingMBean</managed-bean-name>
+        <managed-bean-class>view.posting.NewPostingMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>newlyPostedWelfareMBean</managed-bean-name>
+        <managed-bean-class>view.welfare.NewlyPostedWelfareMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>retireeMBean</managed-bean-name>
+        <managed-bean-class>view.welfare.RetireeMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>transferClaimReportMBean</managed-bean-name>
+        <managed-bean-class>view.reports.transfer.welfare.TransferClaimReportMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>retireeClaimReportMBean</managed-bean-name>
+        <managed-bean-class>view.reports.retiree.welfare.RetireeClaimReportMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>postingProposalMBean</managed-bean-name>
+        <managed-bean-class>view.posting.PostingProposalMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>retiringOfficerMBean</managed-bean-name>
+        <managed-bean-class>view.welfare.RetiringOfficerMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>unpaidTransferClaimMBean</managed-bean-name>
+        <managed-bean-class>view.reports.transfer.welfare.UnpaidTransferClaimMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>paidTransferClaimMBean</managed-bean-name>
+        <managed-bean-class>view.reports.transfer.welfare.PaidTransferClaimMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>transferClaimApprovedByDGMBean</managed-bean-name>
+        <managed-bean-class>view.reports.transfer.welfare.TransferClaimApprovedByDGMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>approvedRetireeClaimMBean</managed-bean-name>
+        <managed-bean-class>view.reports.retiree.welfare.ApprovedRetireeClaimMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>unpaidRetireeClaimMBean</managed-bean-name>
+        <managed-bean-class>view.reports.retiree.welfare.UnpaidRetireeClaimMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>paidRetireeClaimMBean</managed-bean-name>
+        <managed-bean-class>view.reports.retiree.welfare.PaidRetireeClaimMBean</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>postingLetterFormatReportMBean</managed-bean-name>
+        <managed-bean-class>view.reports.posting.PostingLetterFormatReportMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>promotionProposalReportMBean</managed-bean-name>
+        <managed-bean-class>view.reports.promotion.PromotionProposalMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>conversionMBean</managed-bean-name>
+        <managed-bean-class>view.promotion.ConversionMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>promotionExerciseMBean</managed-bean-name>
+        <managed-bean-class>view.promotion.PromotionExerciseMBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+</faces-config>

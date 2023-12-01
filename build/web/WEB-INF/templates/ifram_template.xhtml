@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">    
+
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>
+            <ui:insert name="title_additional_caption"> </ui:insert>        
+        </title>      
+
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/vendor/bootswatch-v3.3.7/bootstrap-bootswatch-paper-theme.min.css"/>
+        <link href="#{request.contextPath}/vendor/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>      
+        <link href="#{request.contextPath}/resources/css/custom.css" rel="stylesheet" type="text/css"/>
+        <link href="#{request.contextPath}/resources/css/vendor-override.css" rel="stylesheet" type="text/css"/>
+
+        <ui:insert name="additional_css_jscript"> </ui:insert>
+    </h:head>
+
+    <h:body style="background-color: #fff;padding: 10px 0px 10px 0px !important;" class="no-padding">
+        
+        <div class="container-fluid">
+            <ui:insert name="content"> </ui:insert> 
+        </div>
+        <!-- /container -->
+
+
+        <script src="#{request.contextPath}/vendor/jquery-3.2.0/jquery-3.2.0.min.js"></script>
+        <script src="#{request.contextPath}/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+        <!-- Additional Java script -->
+        <ui:insert name="addtional_jquery"> </ui:insert>  
+    </h:body>
+
+</html>

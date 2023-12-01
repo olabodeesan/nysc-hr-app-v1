@@ -1,0 +1,354 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../../../WEB-INF/templates/adminTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"                
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">  
+
+
+    <ui:define name="title_additional_caption">
+        ::- Blank
+    </ui:define>
+
+    <ui:define name="additional_css_jscript">
+        <link href="#{request.contextPath}/resources/css/pf-fix.css" rel="stylesheet" type="text/css"/>
+        <link href="#{request.contextPath}/resources/css/form-styles.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/css/personnel-profile.css"/>
+
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/vendor/fancybox/jquery.fancybox.css"/>
+
+        <script src="#{request.contextPath}/vendor/fancybox/jquery.fancybox.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/vendor/select2-4.0.3/js/select2.min.css"/>
+
+        <script src="#{request.contextPath}/vendor/select2-4.0.3/js/select2.min.js"></script>
+
+    </ui:define>
+
+    <ui:define name="page_toolbar_left">
+        Department Setup Interface
+    </ui:define>
+
+    <ui:define name="page_toolbar_right">
+
+    </ui:define>
+
+    <ui:define name="content"> 
+        <div class="row clearfix" style="margin-top: 10px !important; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+            <div class="col-sm-12">                
+                <section id="main-content">
+                    <section class="wrapper">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <section class="panel">
+
+                                    <div class="panel-body" style="font-size: 12px !important;">
+                                        <h:form prependId="false">
+                                            <p:growl id="gowl-msg" />
+
+
+                                            <div class="app-searchbox">
+                                                <h:panelGroup id="search-panel">
+                                                    <table class="app-formtable2">
+                                                        <tr>
+                                                            <td width="120" class="app-label font-siz-10pt">
+                                                                Description:
+                                                            </td>
+                                                            <td width="122">
+                                                                <h:inputText id="start_date" value="#{collegeDepartmentMBean.srchDescription}"
+                                                                             styleClass="form-control" style="width:300px;" autocomplete="off"
+                                                                             readonly="false"/> 
+                                                            </td>
+                                                            <td width="5"></td>
+
+                                                            <td class="app-label font-siz-10pt" >College:</td>
+
+                                                            <td valign="middle"> 
+
+                                                                <h:selectOneMenu class="college-select" style="width: 150px; height: 30px;" value="#{collegeDepartmentMBean.srchCollege}">
+                                                                    <f:selectItem itemLabel="Choose" itemValue=""/>
+                                                                    <f:selectItems value="#{applicationBackingCode.colleges}"/>
+                                                                </h:selectOneMenu>                                 
+                                                            </td> 
+
+
+                                                            <td width="5"></td>
+
+                                                            <td width="5"></td>
+
+                                                            <td>
+                                                                <p:commandLink styleClass="btn btn-primary"
+                                                                               style="color: #fff; height: 30px;"
+                                                                               actionListener="#{collegeDepartmentMBean.searchAction}"
+                                                                               process="search-panel"
+                                                                               update="item-listing-panel"
+                                                                               > 
+                                                                    <i class="fa fa-search"></i> Search
+                                                                </p:commandLink>
+
+
+                                                                <p:commandLink process="search-panel" update="item-listing-panel,pagertxt"
+                                                                               actionListener="#{collegeDepartmentMBean.resetAction}"
+                                                                               styleClass="btn btn-outline btn-icon" style="margin-left: 10px; color: #000;">
+                                                                    <i class="fa fa-refresh"></i> Reset
+                                                                </p:commandLink>    
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                </h:panelGroup>
+                                            </div>
+
+
+                                            <div class="toolbardiv">
+                                                <div class="cp-paginatordiv">
+                                                    <h:commandLink styleClass="inpage-links" value="&laquo;Previous" actionListener="#{collegeDepartmentMBean.previousPage}"/>
+                                                    <span class="buttonsep">|</span>
+                                                    <h:commandLink styleClass="inpage-links" value="Next" actionListener="#{collegeDepartmentMBean.nextPage}" />                                                   
+
+                                                    <h:outputText value="#{collegeDepartmentMBean.paginationDescription}" id="pagertxt" style="margin-left: 15px;"/>
+                                                </div>
+
+
+
+                                                <div style="float: right;margin-right: 20px;">
+
+                                                    <p:commandLink  class="btn btn-success btn-sm" style="color: #fff; border-radius: 10px; height: 30px;" 
+                                                                    oncomplete="PF('addNewDialog').show();">
+                                                        Add A New Department <i class="fa fa-plus"></i>
+                                                    </p:commandLink>
+
+                                                    <a href="#"
+                                                       onclick="openFancyBoxIframe('#{request.contextPath}/view/settings/admin/course/create_new_college.xhtml', 700, 600); return false;"
+                                                       class="btn btn-success btn-sm" style="height: 30px; border-radius: 10px; width: 200px; display: none;">
+                                                        Add A New Department <i class="fa fa-plus"></i>
+                                                    </a>
+                                                </div>
+                                                <div style="clear: both; margin-bottom: 10px;"></div>
+                                            </div>
+
+
+                                            <div class="datagriddiv">
+
+                                                <h:panelGroup id="item-listing-panel">
+                                                    <div style="overflow-x: auto;">
+                                                        <table class="table table-responsive table-hover table-bordered">
+                                                            <thead>
+                                                                <th style="display: none;">S/No</th>
+                                                                <th>Department</th>   
+                                                                <th>College/Faculty</th>
+                                                                <th>Status</th>
+                                                                <th></th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <ui:repeat var="record" value="#{collegeDepartmentMBean.recordList}" varStatus="serialNo" >
+                                                                    <tr>
+                                                                        <td style="display: none;">                                       
+                                                                            <h:outputLabel value="#{serialNo.index}" />
+                                                                        </td>
+                                                                        <td>                                       
+                                                                            <h:outputLabel value="#{record.description}" />
+
+                                                                        </td>
+
+                                                                        <td>                                       
+                                                                            <h:outputLabel value="#{record.collegeDesc}" />
+
+                                                                        </td>  
+                                                                        <td>
+                                                                            <h:outputLabel value="#{record.recordStatus}" />  
+                                                                        </td>
+                                                                        <td>  
+                                                                            <p:commandLink oncomplete="PF('editDialog').show()"
+                                                                                           styleClass="gridlinks btn btn-sm btn-danger" style="color: #fff;"
+                                                                                           action="#{collegeDepartmentMBean.prepareUpdateByLink(record.recordId)}">
+                                                                                <i class="fa fa-folder-open-o"></i>
+
+                                                                            </p:commandLink>
+
+
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </ui:repeat>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </h:panelGroup>
+                                            </div>
+
+                                            <!-- create new record dialog -->
+                                            <p:dialog id="new_record_Dialog" header="Add New Department" widgetVar="addNewDialog" resizable="false"  
+                                                      width="600" modal="true" position='500, 200' style="z-index: 11000 !important;">  
+                                                <h:panelGroup id="new-record-panel">
+                                                    <p:messages />
+                                                    <br />
+                                                    <div class="row" style="margin: 0 20px;">    
+
+                                                        <h:selectOneMenu style="width: 500px; height: 30px;" value="#{collegeDepartmentMBean.recordDto.collegeId}">
+                                                            <f:selectItem itemLabel="Choose" itemValue=""/>
+                                                            <f:selectItems value="#{applicationBackingCode.colleges}"/>
+                                                        </h:selectOneMenu>
+                                                        <br /><br />
+
+
+
+                                                        <b>Department Name:<span class="required-field">*</span></b><br />
+                                                        <h:inputText id="college_description" styleClass="form-control input-sm"
+                                                                     value="#{collegeDepartmentMBean.recordDto.description}"                                                                    
+                                                                     style="background-color: transparent !important; border: 40px; width: 500px;"/>                                                    
+
+
+                                                        <br /><br />
+                                                        <p:commandLink styleClass="btn btn-primary"
+                                                                       style="color: #fff;margin-bottom: 70px; background: #192F59; border-radius: 15px;" 
+                                                                       actionListener="#{collegeDepartmentMBean.createAction}"
+                                                                       process="new-record-panel" update="new-record-panel,item-listing-panel,gowl-msg">
+                                                            <i class="fa fa-send"></i> Submit
+                                                        </p:commandLink>                   
+
+                                                    </div>
+                                                </h:panelGroup>
+                                            </p:dialog>
+
+                                            <!-- end create new record dialog -->
+
+
+                                            <!-- edit new record dialog -->
+                                            <p:dialog id="edit_record_Dialog" header="Edit Department Information" widgetVar="editDialog" resizable="false"  
+                                                      width="600" modal="true" position='500, 200'>  
+                                                <h:panelGroup id="edit-record-Panel">
+                                                    <p:messages />
+                                                    <br />
+                                                    <div class="row" style="margin: 0 20px;">   
+
+                                                        <b><h6 class="text-caption">College/Faculty: <span class="required-indicator">*</span></h6></b>
+
+                                                        <h:selectOneMenu style="width: 500px; height: 30px;" value="#{collegeDepartmentMBean.editRecordDto.collegeId}">
+                                                            <f:selectItem itemLabel="Choose" itemValue=""/>
+                                                            <f:selectItems value="#{applicationBackingCode.colleges}"/>
+                                                        </h:selectOneMenu>
+                                                        <br /> <br />
+
+
+
+                                                        <b>Department Name:<span class="required-field">*</span></b><br />
+                                                        <h:inputText id="edit_college_description" styleClass="form-control input-sm"
+                                                                     value="#{collegeDepartmentMBean.editRecordDto.description}"                                                                    
+                                                                     style="background-color: transparent !important; border: 40px; width: 500px;"/>    
+                                                        <br />
+
+                                                        <b>Status:<span class="required-field">*</span></b><br />
+                                                        <h:selectOneMenu value="#{collegeDepartmentMBean.editRecordDto.recordStatus}" style="width: 500px;">
+                                                            <f:selectItem itemLabel="Any" itemValue="Any" />
+                                                            <f:selectItem itemLabel="ACTIVE" itemValue="ACTIVE" />
+                                                            <f:selectItem itemLabel="INACTIVE" itemValue="INACTIVE" />
+                                                        </h:selectOneMenu>                                              
+
+                                                        <br /><br />
+
+                                                        <p:commandLink styleClass="btn btn-primary"
+                                                                       style="color: #fff;margin-bottom: 70px; background: #192F59; border-radius: 15px;" 
+                                                                       actionListener="#{collegeDepartmentMBean.updateAction}"
+                                                                       process="edit-record-Panel" update="edit-record-Panel, item-listing-panel,gowl-msg">
+                                                            <i class="fa fa-send"></i> Submit Update
+                                                        </p:commandLink>                   
+
+                                                    </div>
+                                                </h:panelGroup>
+                                            </p:dialog>
+
+                                            <!-- end create new record dialog -->
+
+
+                                        </h:form>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="#{request.contextPath}/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="#{request.contextPath}/vendor/jquery.nicescroll-v3.6.8/jquery.nicescroll.min.js"></script>
+
+        <script type="text/javascript">
+
+                                                           $(document).ready(function () {
+                                                               $("#profile-leftnav").niceScroll({cursorcolor: "#009E54"});
+                                                               $('college-select').select2();
+                                                           });
+                                                           function openFancyBoxImage(url, title) {
+                                                               $.fancybox.open({
+                                                                   autoSize: false,
+                                                                   width: '80%',
+                                                                   height: '90%',
+                                                                   href: '' + url + '',
+                                                                   title: title,
+                                                                   padding: 2,
+                                                                   transitionIn: 'elastic',
+                                                                   transitionOut: 'elastic',
+                                                                   helpers: {
+                                                                       overlay: {
+                                                                           closeClick: false
+                                                                       }
+                                                                   }
+                                                               });
+                                                               return false;
+                                                           }
+
+                                                           function openFancyBoxPdf(url, title) {
+                                                               $.fancybox.open({
+                                                                   autoSize: false,
+                                                                   width: 900,
+                                                                   height: 650,
+                                                                   href: '' + url + '',
+                                                                   title: title,
+                                                                   type: 'iframe',
+                                                                   padding: 2,
+                                                                   transitionIn: 'elastic',
+                                                                   transitionOut: 'elastic',
+                                                                   helpers: {
+                                                                       overlay: {
+                                                                           closeClick: false
+                                                                       }
+                                                                   }
+                                                               });
+                                                               return false;
+                                                           }
+
+                                                           function openFancyBoxIframe(url, cWidth, cHeight) {
+                                                               $.fancybox.open({
+                                                                   autoSize: false,
+                                                                   width: cWidth,
+                                                                   height: cHeight,
+                                                                   href: '' + url + '',
+                                                                   type: 'iframe',
+                                                                   padding: 2,
+                                                                   transitionIn: 'elastic',
+                                                                   transitionOut: 'elastic',
+                                                                   helpers: {
+                                                                       overlay: {
+                                                                           closeClick: false
+                                                                       }
+                                                                   },
+                                                                   afterClose: function () { // USE THIS IT IS YOUR ANSWER THE KEY WORD IS "afterClose"
+                                                                       parent.location.reload(true);
+                                                                   }
+                                                               });
+                                                               return false;
+                                                           }
+        </script>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <meta charset="utf-8"/>
+            <title>IMSU ::- e-learning platform</title>
+
+
+            <link rel="stylesheet" type="text/css" href="#{request.contextPath}/login-assets/css/bootstrap.min.css"/>
+            <link rel="stylesheet" type="text/css" href="#{request.contextPath}/login-assets/css/buttons.css"/>
+            <link rel="stylesheet" type="text/css" href="#{request.contextPath}/login-assets/css/login.css"/>           
+            
+            <link href="#{request.contextPath}/vendor/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+            <link href="#{request.contextPath}/resources/css/pf-fix.css" rel="stylesheet" type="text/css"/>      
+        </h:head>
+        
+        <h:body>
+
+            <div class="login-wrapper"></div>
+
+            <div class="wrapper-overlay"></div>
+
+            <div class="login-logo"></div>
+            
+            
+
+            <div class="right_block">
+             
+               
+                <div class="signin-heading">
+                    
+                    <a href="#{request.contextPath}/index.xhtml">
+                          <img src="#{request.contextPath}/login-assets/images/imsu_logo.png" />
+                    </a>
+                    
+                  
+                    <br /><br />
+                    <p>E-Learning Log In</p>
+                </div>
+
+                <h:form prependId="false" style="margin: 0; padding: 0;">
+                    <h:panelGroup id="loginPanel" layout="block" >
+                        <p:messages />
+
+                        <h:inputText id="txt_username"
+                                     value="#{loginBacking.emailAddress}"/>
+                        <p:watermark for="txt_username" value="Enter Email Address/UserID" />
+
+                        <div class="sepdiv20"></div>
+                        <div class="sepdiv20"></div>
+
+                        <h:inputSecret id="txt_pword"
+                                       value="#{loginBacking.password}"/>
+                        <p:watermark for="txt_pword" value="Enter Password" />
+
+                        <div class="sepdiv20"></div>
+                        <div class="sepdiv20"></div>
+
+                        <p:commandLink class="btn btn-success btn-block " style="font-weight: bold; border-radius: 20px; padding: 15px 0;"
+                                       actionListener="#{loginBacking.loginAction}"
+                                       process="loginPanel" update="loginPanel">
+                            
+                            <span style="font-size: 20px; font-weight: 100;">
+                                <i class="fa fa-send"></i>
+                                Submit
+                            </span>
+                        </p:commandLink>
+                    </h:panelGroup>
+
+                </h:form>
+
+                <div class="sepdiv20"></div>
+                <div class="sepdiv20"></div>
+
+                <div class="login-tools" style="display: none;">
+                    <a href="#">forgotten password?</a>
+                </div>
+
+            </div>
+            
+            
+
+            <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"
+                          onerror="PF('statusDialog').hide();PF('errorDialog').show();"/>
+
+            <p:dialog modal="true" widgetVar="statusDialog" header="Status" id="loading-div"
+                      draggable="false" closable="false" styleClass="headlessDialog" width="130" resizable="false">
+                <div class="innerstatus">
+                  
+                    <h:graphicImage value="/login-assets/images/239.GIF" /> 
+                    ...LOADING...
+                </div>
+            </p:dialog>
+
+            <p:dialog modal="true" widgetVar="errorDialog" header="Status" id="time-out-div"
+                      draggable="false" closable="false" styleClass="headlessDialog" width="200" resizable="false">
+                <div class="innererror">
+                    Ooops!, Your request timed out. <br/>Try It Again. Thanks!.<br/>
+                    <a href="#" onclick="PF('errorDialog').hide();">
+                        <span class="errorclose">Close</span>
+                    </a>
+                </div>
+            </p:dialog>
+
+        </h:body>
+
+    </f:view>
+</html>
+

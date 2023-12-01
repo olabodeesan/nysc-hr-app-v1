@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title></title>
+        <link href="#{request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css" />     
+
+        <link href="#{request.contextPath}/css/pf-fix.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/custom.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/custom-old.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/reports.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/app-style.css" rel="stylesheet" type="text/css" />
+        <!-- Additional CSS -->
+        <link href="#{request.contextPath}/css/modern-css.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/simple-inline-css.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+
+
+        <p:dataTable value="#{viewGradeScoreMBean.viewList}" var="record" 
+                     style="width: 100%;">
+            <f:facet name="header">
+                <div style="text-align: left;">Score Grade Point Listing</div>
+            </f:facet>
+
+            <p:column headerText="Initial Score">
+                #{record.intialValue}
+            </p:column>
+
+            <p:column headerText="Final Score">
+                #{record.finalValue}
+            </p:column>
+
+            <p:column headerText="Grade">
+                #{record.gradeObtained}
+            </p:column>
+
+            <p:column headerText="Point">
+                #{record.pointObtained}
+            </p:column>
+
+        </p:dataTable>
+    </h:body>
+</html>
+

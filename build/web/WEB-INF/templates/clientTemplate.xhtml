@@ -1,0 +1,283 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">    
+
+    <f:event type="javax.faces.event.PreRenderViewEvent"
+             listener="#{adminTemplateSessionBacking.preRenderView(cse)}" />
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>
+            <ui:insert name="title_additional_caption"> </ui:insert>        
+        </title>
+        <!--        
+            <h:outputStylesheet name="./css/default.css"/>
+            <h:outputStylesheet name="./css/cssLayout.css"/>
+        -->        
+
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/vendor/bootswatch-v3.3.7/bootstrap-bootswatch-paper-theme.min.css"/>
+        <link href="#{request.contextPath}/vendor/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="#{request.contextPath}/vendor/jquery-typeahead-2.8.0/jquery.typeahead.min.css" rel="stylesheet" type="text/css"/>
+        <link href="#{request.contextPath}/resources/css/custom.css" rel="stylesheet" type="text/css"/>
+        <link href="#{request.contextPath}/resources/css/vendor-override.css" rel="stylesheet" type="text/css"/>   
+    </h:head>
+
+    <h:body>
+
+        <div class="fixed-header">
+
+            <nav id="navigation-1" class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                                aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand navbar-top-brand" href="#" style="color:#fff !important; line-height: inherit; vertical-align: middle; height: 60px;">
+                            icoopware
+                        </a>
+                    </div>
+                    <div id="navbar-1" class="navbar-collapse collapse">
+                        <h:form>
+                            <ul class="nav navbar-nav navbar-right navbar-top-links">
+                                <li class="">
+                                    <a href="#" class="user-organization"
+                                       style="">
+                                        ICT Department
+                                    </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle user-identity" data-toggle="dropdown" role="button"
+                                       aria-haspopup="true" aria-expanded="false">
+                                        <img src="#{request.contextPath}/resources/images/user.png" class="user-icon"/>
+                                        #{adminTemplateSessionBacking.currentUser.displayName} <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu user-identity-dropdown">                                   
+                                        <li><a href="#">Profile</a></li>
+                                        <li role="separator" class="divider"></li>                                    
+                                        <li>
+                                            <h:commandLink value="Logout" actionListener="#{adminTemplateSessionBacking.logoutAction}"/>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </h:form>
+
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+            </nav>
+
+            <nav id="navigation-2" class="navbar navbar-default navbar-fixed-top_">
+                <div class="container-fluid" style="padding-left: 0px;">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2"
+                                aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+                    <div id="navbar-2" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class=""><a href="#">Home</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Personnel Records<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="">
+                                        <a href="#">Personnel In Active Service</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="">
+                                        <a href="#">Personnel Retiring Soon</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#">Personnel Overdue
+                                            Retirement</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#">Personnel Out Of Service</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="">
+                                        <a href="#">Manpower Distribution</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Appointments<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="">
+                                        <a href="#">New Personnel</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Promotion<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="">
+                                        <a href="#">Promotion Listing</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="">
+                                        <a href="#">Manage Personnel Promotion</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#">Manage Personnel Cadre</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Discipline<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="">
+                                        <a href="#">Disciplined Personnel</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="">
+                                        <a href="#">Manage Personnel Discipline</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Posting<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="">
+                                        <a href="#">Posting Listing</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="">
+                                        <a href="#">Manage Personnel Posting</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Registry<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="">
+                                        <a href="#">Registry Book</a>
+                                    </li>
+                                    <!--                                {#<li class="">
+                                                                        <a href="#">Manage Personnel File Action Sheet</a>
+                                                                    </li>#}-->
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Leave<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="">
+                                        <a href="#">Presently On Leave</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <!--                                {#<li class="">
+                                                                        <a href="#">Manage Annual Leave Roster</a>
+                                                                    </li>#}-->
+                                    <li class="">
+                                        <a href="#">Manage Personnel Leave</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Training<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="">
+                                        <a href="#">Personnel Trainings</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="">
+                                        <a href="#">Manage Personnel Training</a>
+                                    </li>
+                                    <!--                                {#<li class="">
+                                                                        <a href="#">Training Schedules</a>
+                                                                    </li>
+                                                                    <li class="">
+                                                                        <a href="#">Manage Personnel Training Schedule</a>
+                                                                    </li>#}-->
+                                    <li class="">
+                                        <a href="#">Manage Training Resources</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Verification<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="">
+                                        <a href="#" target="_blank">Scan Staff ID
+                                            Card</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class=""><a href="#"></a></li>
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+            </nav>
+
+            <div class="container-fluid page-toolbar">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-left">
+                            <h5>
+                                <ui:insert name="page_toolbar_left">   
+
+                                </ui:insert> 
+
+                            </h5>
+                        </div>
+                        <div class="pull-right page-toolbar-right">
+
+                            <ui:insert name="page_toolbar_right">   
+
+                            </ui:insert>  
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <ui:insert name="content">   
+
+            </ui:insert>  
+        </div>
+
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="#{request.contextPath}/vendor/jquery-3.2.0/jquery-3.2.0.min.js"></script>
+        <script src="#{request.contextPath}/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+        <script src="#{request.contextPath}/resources/js/app.js"></script>
+        <script src="#{request.contextPath}/vendor/jquery-typeahead-2.8.0/jquery.typeahead.min.js"></script> 
+    </h:body>
+
+</html>

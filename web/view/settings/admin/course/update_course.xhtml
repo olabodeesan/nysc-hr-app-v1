@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+      
+        <ui:composition template="../../../../WEB-INF/templates/light_box_iframe_template.xhtml">
+            <ui:define name="title_additional_caption">
+
+            </ui:define>
+
+            <ui:define name="additional_css_jscript">
+                <link rel="stylesheet" href="#{request.contextPath}/resources/css/personnel-profile.css"/>
+                <style type="text/css">
+                    .ui-growl { 
+                        left:20px;                    
+                        width: inherit;
+                    }
+
+                    .ui-growl-title ul.msg{
+                        padding: 0px;
+                        margin: 0px;
+                    }
+
+
+                    .ui-growl-item {
+                        display: block;
+                        padding: 10px 15px !important;
+                    }
+
+                    .ui-growl-message {
+                        padding: 0 0 5px 10px;
+                        width: inherit !important; 
+                        float: left; 
+                    }
+                </style>
+
+
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="main_form" prependId="false">
+                    <p:messages id="msgFeedback" closable="true"/>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table>
+                                <tbody>
+                                    <tr>
+
+
+                                        <td valign="top" width="595">
+
+                                            <h:panelGroup id="editEntryPanel" layout="block" class="personnel-popup-form-wrapper">
+                                                <div class="personnel-popup-heading" style="color: #2196F3; font-size: 15px !important; font-weight: bolder !important;">
+                                                    <i class="fa fa-pencil"></i> Create A New Course
+                                                </div>
+                                                <div class="v-sep-10"></div>
+
+
+                                                <div class="form-group">
+                                                    <label for="txt_staff_id" class="col-sm-3 control-label" style="font-weight: bold;">
+                                                        Staff ID:                                                      
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <h:inputText id="txt_staff_id" styleClass="form-control input-sm"
+                                                                     value="#" 
+                                                                     disabled="true"
+                                                                     style="background-color: transparent !important;"
+                                                                     />
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="v-sep-10"></div>
+
+                                                <div class="form-group">
+                                                    <label for="txt_staff_surname" class="col-sm-3 control-label" style="font-weight: bold;">
+                                                        Surname:
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <h:inputText id="txt_staff_surname" styleClass="form-control input-sm"
+                                                                     value="#"   
+                                                                     disabled="true"
+                                                                     style="background-color: transparent !important;"
+                                                                     />
+                                                    </div>
+                                                </div>
+
+                                                <div class="v-sep-10"></div>
+
+                                                <div class="form-group">
+                                                    <label for="txt_staff_othernames" class="col-sm-3 control-label" style="font-weight: bold;">
+                                                        Other Names:
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <h:inputText id="txt_staff_othernames" styleClass="form-control input-sm"
+                                                                     value="#" 
+                                                                     disabled="true"
+                                                                     style="background-color: transparent !important;"
+                                                                     />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cbo_record_status" class="col-sm-3 control-label" style="font-weight: bold;">
+                                                        Status:
+                                                        <span class="required-field">*</span>
+                                                    </label>
+                                                    <div class="col-sm-4">
+
+                                                        <h:selectOneMenu id="cbo_record_status" class="form-control input-sm"                                                                        
+                                                                         value="#" 
+                                                                         title="Select ID Card Status ">
+                                                            <f:selectItem itemLabel="-- Choose ID Card Status --" itemValue="" />
+                                                            <f:selectItems value="#" />
+                                                        </h:selectOneMenu>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <div class="col-sm-4">
+                                                        <p:commandLink styleClass="btn btn-primary"
+                                                                       actionListener="#" 
+                                                                       process="editEntryPanel"                                              
+                                                                       style="color: #fff;">
+                                                            <i class="fa fa-send"></i> Submit
+                                                        </p:commandLink>
+                                                    </div>
+                                                </div>
+
+
+                                            </h:panelGroup>
+
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    
+                </h:form>
+            </ui:define>
+
+            <ui:define name="addtional_jquery">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

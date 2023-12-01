@@ -1,0 +1,308 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../../../WEB-INF/templates/adminTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"                
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+    
+
+
+    <ui:define name="title_additional_caption">
+        ::- Course Assignment
+    </ui:define>
+
+    <ui:define name="additional_css_jscript">
+        <link href="#{request.contextPath}/resources/css/pf-fix.css" rel="stylesheet" type="text/css"/>
+        <link href="#{request.contextPath}/resources/css/form-styles.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/css/personnel-profile.css"/>
+
+        <link rel="stylesheet" type="text/css" href="#{request.contextPath}/vendor/fancybox/jquery.fancybox.css"/>
+
+        <script src="#{request.contextPath}/vendor/fancybox/jquery.fancybox.js"></script>
+        <script src="#{request.contextPath}/vendor/select2-4.0.3/js/select2.min.js"></script>
+
+    </ui:define>
+
+
+    <ui:define name="page_toolbar_left">
+        Course Assignment Interface
+    </ui:define>
+
+    <ui:define name="page_toolbar_right">
+
+    </ui:define>
+
+
+    <ui:define name="content">
+        <h:form prependId="false">
+
+
+            <div class="row">
+                <div class="col-md-12" style="padding-top: 30px;">
+                    <h:panelGroup id="search-panel" layout="block">
+                        <table class="app-formtable">
+
+                            <tr>
+                                <td class="app-label" valign="middle">Search Username:<span class="required-indicator">*</span></td>
+                                <td width="10"></td>
+
+                                <td class="app-label" valign="middle"> 
+                                    <h:inputText value="#{assignedCourseMBean.srchUsername}"
+                                                 styleClass="form-control" style="width:300px;" autocomplete="off"
+                                                 readonly="false" /> 
+
+                                </td>                               
+
+
+                                <td class="app-label" valign="middle">
+                                    <p:commandLink styleClass="btn btn-primary"
+                                                   style="color: #fff; height: 30px;"
+                                                   actionListener="#{assignedCourseMBean.searchAction}"
+                                                   process="search-panel"
+                                                   update="mainPanel"
+                                                   > 
+                                        <i class="fa fa-search"></i>
+                                    </p:commandLink>
+                                </td>
+                            </tr> 
+
+                        </table>
+                    </h:panelGroup>
+                </div>
+            </div>          
+
+
+
+            <div id="tri-divider" class="tri-down tri-down2"></div>
+
+            <h:panelGroup id="mainPanel" layout="block" style=" padding: 10px;">
+                <p:growl id="growl-msg" />
+
+                <h:panelGroup id="assign-course-panel" layout="block"
+                              rendered="#{not empty assignedCourseMBean.recordDto.lectureId}">
+                    <div class="row">
+
+                        <div class="col-sm-6"> <!-- Course Selector -->
+                            <p:messages />
+
+                            <div class="card- card-2-"
+                                 style="background-color: transparent; padding: 10px;margin-top: 20px;text-align: left; font-size: 12px;">
+                                <b> Assign Course To Lecturer<span style="font-size: 20px;">
+                                    #{assignedCourseMBean.recordDto.surname},#{assignedCourseMBean.recordDto.otherNames}  (#{adminTemplateSessionBacking.currentUser.currentActiveSessionDescription}) Academic Session
+                                </span></b>
+                                <hr class="style-three"/>
+                            </div>
+                            <table class="app-formtable">
+                                <tr>
+                                    <td class="app-label" valign="top"><b>Session:</b><span class="required-indicator">*</span></td>
+                                    <td width="10"></td>
+                                    <td>
+                                        <h:selectOneMenu value="#{assignedCourseMBean.recordDto.sessionId}"
+                                                         style="width: 250px;" >
+                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                            <f:selectItems value="#{applicationBackingCode.academicSession}" />
+                                        </h:selectOneMenu>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" height="10"></td>
+                                </tr>
+                                <tr style="padding: 30px 0px;">
+                                    <td class="app-label" valign="top">Programme:<span class="required-indicator">*</span></td>
+                                    <td width="10"></td>
+                                    <td>
+                                        <h:selectOneMenu value="#{assignedCourseMBean.recordDto.programmeId}"
+                                                         style="width: 250px;" >                                            
+                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                            <f:selectItems value="#{applicationBackingCode.collegeDepartment}" />
+                                        </h:selectOneMenu>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" height="10"></td>
+                                </tr>
+                                <tr>
+                                    <td class="app-label" valign="top">Level:<span class="required-indicator">*</span></td>
+                                    <td width="10"></td>
+                                    <td>
+                                        <h:selectOneMenu value="#{assignedCourseMBean.recordDto.levelId}"
+                                                         style="width: 250px;" >                                            
+                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                            <f:selectItems value="#{applicationBackingCode.academicLevel}" />
+                                        </h:selectOneMenu>
+
+                                    </td>
+                                </tr>                                                                
+
+                                <tr>
+                                    <td colspan="3" height="10"></td>
+                                </tr>
+                                <tr>
+                                    <td class="app-label" valign="top">Semester:<span class="required-indicator">*</span></td>
+                                    <td width="10"></td>
+                                    <td>
+                                        <h:selectOneMenu value="#{assignedCourseMBean.recordDto.semesterId}"
+                                                         style="width: 250px;" >
+
+                                            <p:ajax listener="#{assignedCourseMBean.handleSelectChange}" 
+                                                    process="mainPanel" update="dd_courses"/>
+
+                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                            <f:selectItems value="#{applicationBackingCode.academicSemester}" />
+                                        </h:selectOneMenu>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" height="10"></td>
+                                </tr>
+                                <tr>
+                                    <td class="app-label" valign="top">Course:<span class="required-indicator">*</span></td>
+                                    <td width="10"></td>
+                                    <td>
+                                        <h:selectOneMenu id="dd_courses" value="#{assignedCourseMBean.recordDto.courseCode}"
+                                                         style="width: 500px;" >
+
+                                            <f:selectItem itemLabel="Choose" itemValue="" />
+                                            <f:selectItems value="#{assignedCourseMBean.courseMap}" />
+                                        </h:selectOneMenu>
+
+                                    </td>
+                                </tr>
+
+
+                                <br />
+
+                                <tr>
+                                    <td colspan="3" height="10"></td>
+                                </tr>
+                                <tr>
+                                    <td class="app-label" valign="top"></td>
+                                    <td width="10"></td>
+                                    <td>
+                                        <p:commandLink styleClass="btn btn-primary"
+                                                       style="color: #fff; height: 30px;"
+                                                       actionListener="#{assignedCourseMBean.createAction}"
+                                                       process="assign-course-panel" update="assign-course-panel,mainPanel,growl-msg">
+                                            <i class="fa fa-server"></i> Assign
+                                        </p:commandLink>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+
+
+                        </div> <!-- End Course Selector -->
+
+
+                        <div class="col-sm-6">
+                            <div class="card- card-2-"
+                                 style="background-color: transparent; padding: 5px;margin-top: 30px;text-align: left; font-size: 12px;">
+                                <b>My Assigned Courses</b>
+                                <hr class="style-two"/>
+                            </div>
+
+                            <h:panelGroup id="my-assigned-course-panel" layout="block">
+                                <div style="overflow-x: auto;">
+                                    <table class="table table-responsive table-hover table-bordered">
+
+                                        <thead>
+
+                                            <tr  style="background: #192F59; color: #fff;">
+                                                <td colspan="5">
+                                                    <div style="text-align: left; font-weight: 500;">Semester Assigned Course Listing for 
+                                                        (#{assignedCourseMBean.recordDto.surname},#{assignedCourseMBean.recordDto.otherNames})
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <th>Course Code</th>
+                                            <th>Course Title</th>   
+                                            <th>Unit/Type</th>
+                                            <th>Student No</th>
+                                            <th></th>
+                                        </thead>
+                                        <tbody>
+                                            <ui:repeat var="record" value="#{assignedCourseMBean.recordDto.assignedCourse}" varStatus="serialNo" >
+                                                <tr>
+                                                    <td>                                       
+                                                        <h:outputLabel value="#{record.courseCode}" />
+                                                    </td>
+                                                    <td>                                       
+                                                        <h:outputLabel value="#{record.description}" />
+                                                    </td>                                                                      
+
+                                                    <td>
+                                                        #{record.courseUnit}<b>(#{record.courseType})</b> 
+                                                    </td>
+                                                    <td>
+                                                        #{record.noRegistered}
+                                                    </td>
+                                                    <td>  
+                                                        <p:commandLink 
+                                                            action="#{assignedCourseMBean.prepareSubmitDialog(record.recordId,record.courseCode, record.description)}">                                           
+                                                            <i class="fa fa-cut"></i> Remove 
+                                                        </p:commandLink>
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </h:panelGroup>
+
+
+                        </div>
+                    </div>
+
+                </h:panelGroup>
+
+                <h:panelGroup id="emptyRecordPanel" layout="block" style="margin-left: 30px;"
+                              rendered="#{empty assignedCourseMBean.recordDto.lectureId}" >
+                    <h:outputText value="No Record Found" styleClass="no-record-found-txt"/>
+                </h:panelGroup>
+            </h:panelGroup> 
+
+
+
+            <p:dialog id="remove_dialog" header="Confirmation: Remove Assigned Course?" widgetVar="removeDialog" resizable="false"  
+                      width="400" modal="true" position="500,300" closable="false">
+                <h:panelGroup id="removeDialogPanel" layout="block">
+
+                    <div class="confirm-txt">
+                        Are you sure you want to remove
+                        <br/>
+                        #{assignedCourseMBean.delCourseCode}
+                        .::.
+                        #{assignedCourseMBean.delCourseDesc} 
+                        <br />
+                        From Lecturer <span style="text-transform: uppercase;"> #{assignedCourseMBean.recordDto.surname},#{assignedCourseMBean.recordDto.otherNames}</span>?
+                    </div>
+                    <br/>
+                    <p:commandLink  actionListener="#{assignedCourseMBean.removeAction}" ajax="false"
+                                    value="Yes" styleClass="btn btn-success bs"
+                                    style="color: #fff;font-weight: bold;font-size: 13px;"
+                                    update="assign-course-panel,mainPanel,growl-msg"/>
+                    <p:commandLink   
+                        oncomplete="PF('removeDialog').hide();"
+                        value="No" styleClass="btn btn-danger bs"
+                        style="color: #fff;font-weight: bold;font-size: 13px;margin-left: 30px;"/>
+
+                </h:panelGroup>
+            </p:dialog>
+
+        </h:form>
+
+
+
+
+    </ui:define>
+
+</ui:composition>

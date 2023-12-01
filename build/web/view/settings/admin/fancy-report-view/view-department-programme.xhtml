@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title></title>
+        <link href="#{request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type="text/css" />     
+
+        <link href="#{request.contextPath}/css/pf-fix.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/custom.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/custom-old.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/reports.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/app-style.css" rel="stylesheet" type="text/css" />
+        <!-- Additional CSS -->
+        <link href="#{request.contextPath}/css/modern-css.css" rel="stylesheet" type="text/css" />
+        <link href="#{request.contextPath}/css/simple-inline-css.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <br /> 
+
+        <table class="table table-responsive table-bordered" style="width: 70%;">
+            <tr>
+                <td style="font-size: 15px; font-weight: bold; display: none;" width="30"> Department: </td>
+                <td style="font-size: 15px; font-weight: bold;"> #{viewDeptProgMBean.deptProg.departmentDesc}  Department </td>
+            </tr>
+        </table>
+
+
+        <p:dataTable value="#{viewDeptProgMBean.deptProg.programs}" var="record" 
+                     style="width: 100%;">
+
+            <f:facet name="header">
+                <div style="text-align: left;">Programme Listing</div>
+            </f:facet>
+            <p:column headerText="Programme Description">
+                #{record.description}
+            </p:column>
+
+            <p:column headerText="Status" >
+                #{record.recordStatus}
+            </p:column>
+
+
+        </p:dataTable>
+    </h:body>
+</html>
+

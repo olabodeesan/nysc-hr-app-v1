@@ -1,0 +1,150 @@
+
+html, body {
+    height: 100%;
+    position: relative;
+}
+
+body{
+    font-family: Segoe,"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,"sans-serif";
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #e8ebf1;
+}
+
+.login-wrapper{
+
+    height: 100%;
+    width: 100%;
+    position: fixed;	
+    left: 0;
+    top: 0;
+
+ background: url(../images/intro-bg3.jpg);
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    /*background-attachment: fixed;*/  
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+
+}
+
+.wrapper-overlay{
+    height: 100%;
+    width: 100%;
+    position: fixed;	
+    left: 0;
+    top: 0;
+   background-color:  rgba(0,0,0, 0.4);
+
+  /*  background-color: rgba(25,170,141, 0.5);
+  background-color:  rgba(245,245,245,0.5);
+  background-color:  rgba(0,0,0, 0.4);
+  background-color:  rgba(178,178,178, 0.4);
+   background-color:  rgba(0,0,0, 0.7);*/  
+}
+
+.bottom-line{
+    width: 100%;
+    height: 3px;
+    position: fixed;	
+    left: 0;
+    bottom: 20px;
+    border-top: 1px solid #fff;
+}
+
+.login-logo{
+
+    height: 200px;
+    width: 595px;
+    position: fixed;	
+    left: 30px;
+    top: 10px;
+
+  /*background: url(../images/login_logo_1.png);*/
+    background-repeat: no-repeat;  
+}
+
+.right_block {
+    position: fixed;
+    width: 420px;
+    right: 0;
+  /* background: rgba(0, 0, 0, 0.8);  */
+  background:#F5F5F5;
+  /* background-color: #ef1230;*/
+    padding: 0px 40px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-left: 4px solid #AB1B36;
+}
+
+.signin-heading {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+   /* color: #ffffff;*/
+   color:#B50F24;
+    margin-top: 50%;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.sepdiv5{
+    display: block;
+    height: 5px;
+}
+
+.sepdiv10{
+    display: block;
+    height: 10px;
+}
+
+.sepdiv20{
+    display: block;
+    height: 20px;
+}
+
+.sepdiv15{
+    display: block;
+    height: 15px;
+}
+
+input[type="text"],input[type="password"], textarea {
+    resize: none;
+    outline: none;
+    width: 340px;
+    padding: 10px 0px;    
+    font-size: 13px;
+    font-weight: 700;
+    color: #757575;
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    background-color: rgba(255, 255, 255, 0);
+    background-color: transparent;
+}
+
+textarea:focus,input[type="text"]:focus,input[type="password"]:focus, select:focus{
+
+    border-bottom: 1px solid #58AF71;
+    box-shadow: 0 1px 0 0 #58AF71;
+}
+
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+.login-tools{
+    text-align: right;
+}
+
+.login-tools a{
+    color: #fff;
+    text-decoration: underline;
+}

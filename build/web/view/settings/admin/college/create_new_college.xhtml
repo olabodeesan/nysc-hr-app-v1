@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="../../../../WEB-INF/templates/light_box_iframe_template.xhtml">
+            <ui:define name="title_additional_caption">
+
+            </ui:define>
+
+            <ui:define name="additional_css_jscript">
+                <link rel="stylesheet" href="#{request.contextPath}/resources/css/personnel-profile.css"/>
+                <style type="text/css">
+                    .ui-growl { 
+                        left:20px;                    
+                        width: inherit;
+                    }
+
+                    .ui-growl-title ul.msg{
+                        padding: 0px;
+                        margin: 0px;
+                    }
+
+
+                    .ui-growl-item {
+                        display: block;
+                        padding: 10px 15px !important;
+                    }
+
+                    .ui-growl-message {
+                        padding: 0 0 5px 10px;
+                        width: inherit !important; 
+                        float: left; 
+                    }
+                </style>
+
+
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="main_form" prependId="false">
+                    <!--                    <p:messages id="msgFeedback" closable="true"/>-->
+                    <p:growl id="growl-msg" />
+                    <div class="row">
+                        <div class="col-sm-12">                         
+
+                            <h:panelGroup id="new-record-panel" layout="block" style="background: #345dfe;">
+                                <div class="personnel-popup-heading" style="color: #2196F3; font-size: 15px !important; font-weight: bolder !important;">
+                                    <i class="fa fa-pencil"></i> Create A New College
+                                </div>
+                                <div class="v-sep-10"></div>
+                                College/Faculty Name: <br />
+                                <h:inputText id="txt_college" styleClass="form-control input-sm"
+                                             value="#{collegeMBean.recordDto.description}"                                                                    
+                                             style="background-color: transparent !important;"/>      
+
+
+
+                                <div class="v-sep-10"></div>
+                                <div class="col-sm-4">
+                                    <p:commandLink value="Submit" styleClass="btn btn-primary"
+                                                   style="color: #fff;margin-bottom: 70px;" 
+                                                   actionListener="#{collegeMBean.createAction}"
+                                                   process="new-record-panel" update="new-record-panel,growl-msg">
+                                        <i class="fa fa-send"></i> Submit
+                                    </p:commandLink>                                       
+                                </div>
+
+
+
+
+                            </h:panelGroup>
+
+
+                        </div>
+                    </div>                    
+                </h:form>
+            </ui:define>
+
+            <ui:define name="addtional_jquery">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="../../../../WEB-INF/templates/light_box_iframe_template.xhtml">
+            <ui:define name="title_additional_caption">
+
+            </ui:define>
+
+            <ui:define name="additional_css_jscript">
+                <script type="text/javascript" src="#{request.contextPath}/jwplayer/jwplayer.js"></script>
+                <script type="text/javascript">var switchTo5x = true;</script>
+
+                <link href="#{request.contextPath}/resources/css/pf-fix.css" rel="stylesheet" type="text/css"/>
+                <link href="#{request.contextPath}/resources/css/form-styles.css" rel="stylesheet" type="text/css"/>
+                <link href="#{request.contextPath}/resources/css/content_preview.css" rel="stylesheet" type="text/css"/>
+                <link rel="stylesheet" href="#{request.contextPath}/resources/css/personnel-profile.css"/>
+
+                <link rel="stylesheet" type="text/css" href="#{request.contextPath}/vendor/fancybox/jquery.fancybox.css"/>
+
+                <script src="#{request.contextPath}/vendor/fancybox/jquery.fancybox.js"></script>
+                <script src="#{request.contextPath}/vendor/select2-4.0.3/js/select2.min.js"></script>
+                <style type="text/css">
+                    body{
+                        background: #fff;
+                        margin: 20px;
+                        padding: 20px;
+                    }
+
+                    .ui-growl { 
+                        left:20px;                    
+                        width: inherit;
+                    }
+
+                    .ui-growl-title ul.msg{
+                        padding: 0px;
+                        margin: 0px;
+                    }
+
+
+                    .ui-growl-item {
+                        display: block;
+                        padding: 10px 15px !important;
+                    }
+
+                    .ui-growl-message {
+                        padding: 0 0 5px 10px;
+                        width: inherit !important; 
+                        float: left; 
+                    }
+
+                    .cp-datagriddiv{
+                        width: 100%;
+                        /*    overflow: scroll;*/
+                    }
+
+                    .cp-xside-block-simple-heading {
+                        background: none;
+                        border: 0;
+                        border-bottom: 1px solid #000;
+                        color: #000;
+                        font-weight: 400;
+                        line-height: 20px;
+                        margin: 0 0 20px;
+                        padding: 0 0 10px;
+                        text-transform: none;
+                        font-family: 'Roboto',sans-serif;
+                    }
+
+                    .cp-xside-block-simple-heading .bigtitle{
+                        font-size: 17px;
+                    }
+
+                    .dialog-bigtxt{
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+
+                    .dialog-smalltxt{
+                        font-size: 12px;
+                    }
+
+                    /*FEATURED STUFF*/
+                </style>
+
+
+            </ui:define>
+
+            <ui:define name="content">            
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-md-12">
+                        <div class="card- card-2-"
+                             style="background-color: transparent; padding: 10px;margin-top: 20px;text-align: center; font-size: 20px;">
+                            <b> Course Title: </b> #{viewAssignmentContentDetailsMBean.recordDto.description} - (#{viewAssignmentContentDetailsMBean.recordDto.courseCode})
+                            <br /> <b> Assignment Posted By: </b> #{viewAssignmentContentDetailsMBean.recordDto.uploadedBy} 
+                            <hr class="style-two"/>
+                        </div>
+
+
+                        <div style="display: block; margin-top: 20px;">
+                            <c:choose>
+                                <c:when test="#{viewAssignmentContentDetailsMBean.recordDto.courseMaterialFileNameExtention eq 'mp3'}">
+                                    <div class="videoframe">
+                                        <div id="container">Loading the player ...</div>
+                                        <script type="text/javascript">
+                    jwplayer("container").setup({
+                        autostart: true,
+                        flashplayer: "#{request.contextPath}/jwplayer/player.swf",
+                        file: "C:/IMSU_E_LEARNING_UPLOADS/#{viewAssignmentContentDetailsMBean.recordDto.courseMaterialFileName}",
+                        height: 400,
+                        width: 680
+                    });
+                                        </script>
+                                    </div>
+                                </c:when>
+                                <c:when test="#{viewAssignmentContentDetailsMBean.recordDto.courseMaterialFileNameExtention eq 'aud'}">
+                                    <div class="videoframe">
+                                        <div id="container">Loading the player ...</div>
+                                        <script type="text/javascript">
+                                            jwplayer("container").setup({
+                                                autostart: true,
+                                                flashplayer: "#{request.contextPath}/jwplayer/player.swf",
+                                                file: "opt/IMSU_E_LEARNING_UPLOADS/#{viewAssignmentContentDetailsMBean.recordDto.courseMaterialFileName}",
+                                                height: 100,
+                                                width: 680
+                                            });
+                                        </script>
+                                    </div>
+                                </c:when>
+                                <c:when test="#{viewAssignmentContentDetailsMBean.recordDto.courseMaterialFileNameExtention eq 'png'  or viewAssignmentContentDetailsMBean.recordDto.courseMaterialFileNameExtention eq 'jpg'}">
+                                    <div class="imageviewer">
+                                        <img src="opt/IMSU_E_LEARNING_UPLOADS/#{viewAssignmentContentDetailsMBean.recordDto.courseMaterialFileName}"
+                                             alt="#{viewAssignmentContentDetailsMBean.recordDto.description}"/>
+                                    </div>
+                                </c:when>
+
+                                <c:when test="#{viewAssignmentContentDetailsMBean.recordDto.courseMaterialFileNameExtention eq 'pdf'}">
+                                    <div class="bookviewer">
+                                        <iframe 
+                                            src="http://imsuelearning.org.ng/IMSU_E_LEARNING_UPLOADS/pdfjs-3.0.279-dist/web/viewer.html?file=http://imsuelearning.org.ng/IMSU_E_LEARNING_UPLOADS/#{viewAssignmentContentDetailsMBean.recordDto.courseMaterialFileName}"
+                                            style="width: 100%; height: 600px;">
+
+                                        </iframe>
+                                    </div>
+                                </c:when>
+                            </c:choose>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </ui:define>
+
+            <ui:define name="addtional_jquery">
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
